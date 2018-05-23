@@ -1,6 +1,6 @@
 #-----Almacenador-----
 
-import requests, hashlib, pprint, os, html2text, logging, configparser
+import requests, hashlib, pprint, os, logging, configparser
 
 #from main import tiempoTimeout
 #tiempoTimeout = 10

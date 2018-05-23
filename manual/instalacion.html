@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Manual Usuario BotGit</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Mostrar navegación</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">
+                	<span class="glyphicon glyphicon-eye-open"></span> 
+                	BotGIT
+                </a>
+            </div>
+            <!-- Navbar links -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="instalacion.html" class="active">Instalación</a>
+                    </li>
+                    <li>
+                        <a href="manual.html">Manual de usuario</a>
+                    </li>
+                    <li>
+                        <a href="desarrolladores.html">Para desarrolladores</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="contacto.html">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 portfolio-item">
+                
+                <p>
+                <h3>BotGIT requiere de los siguientes paquetes:</h3>
+                <ul>
+                    <li><b>Python3 en su versión 3.5</b></li>
+                    <li><b>Qt4 en su versión 4.8</b></li>
+                    <li><b>SIP en su versión 4.19.8</b></li>
+                    <li><b>MariaDb v10</b></li>
+                </ul>
+
+                <h3>Tambien requiere de las siguientes librerias de python3, instalarlas con <b>PIP3</b>.</h3>
+                
+                <ul>
+                    <li><b>requests</b> <i>Para realizar las peticiones HTTP.</i></li>
+                    <li><b>webbrowser</b> <i>Para abrir elnavegador web.</i></li>
+                    <li><b>pyperclip</b> <i>Para copiar cosas al "clipboard".</i></li>
+                    <li><b>reportlab</b> <i>Para generar PDFs</i></li>
+                    <li><b>beautifulSoup4</b> <i>Para "parsear" los resultados obtenidos</i></li>
+                </ul>
+                </p>
+                
+                <h3>Instalando haciendo uso de la consola</h3>
+
+                <code class="laguage-bash" data-lang="bash" style="width:90%">
+                    <ul style="list-style-type: none">
+                        <li>apt-get install mariadb-server</li>
+                        <li>apt-get install python3</li>
+                        <li>apt-get install python3-pip</li>
+                        <li>apt-get install qt4-*</li>
+                        <li>apt-get install libqt4-sql-mysql</li>
+                        <li>apt-get install python3-sip</li>
+                        <li>apt-get install python3-pyqt4</li>
+                        <li>apt-get install python-qt4-sql</li>
+
+                        <li>pip3 install requests</li>
+                        <li>pip3 install webbrowser</li>
+                        <li>pip3 install pyperclip</li>
+                        <li>pip3 install reportlab</li>
+                        <li>pip3 install beautifulSoup4</li>
+                    </ul>
+                </code>
+
+                <p>Los paquetes de SIP y PyQT4 pueden ser instalados desde su código fuente descargandolos en:</p>
+                <ul>
+                    <li><a href="https://www.riverbankcomputing.com/software/sip/download">SIP</a></li>
+                    <li><a href="https://www.riverbankcomputing.com/software/pyqt/download">PyQT4</a></li>
+                </ul>
+                <p>Para su instalación descomprimir los ficheros y dentro de las carpetas encontrar el archivo <b>configure.py</b> y ejecutarlo con <b>python3</b> luego dentro del mismo directorio ejecutar <b>make</b> y luego <b>make install</b>. Notese que <b>SIP debe estar instalado antes de intentar la instalación de PyQt4...</b></p>
+
+                <h3>Poniendo la base de datos a punto</h3>
+                <p>Para tener la base de datos lista para el uso de botgit basta con crear una nueva base de datos con el nombre "botgit" y luego importar el esquema que viene incluido en el paquete "esquema.sql".</p>
+
+                <code class="laguage-bash" data-lang="bash" style="width:90%">
+                    <ul style="list-style-type: none">
+                        <li>mysql -u xxxx -p botgit < esquema.sql</li>                        
+                    </ul>
+                </code>
+
+                <h3>Instalación en windows</h3>
+                <p>Usa Google y busca Qt4, SIP, PyQT4 y descarga los ejecutables, <strike>deja la flojera.</strike></p>
+
+            </div>            
+        </div>       
+    </div>
+	
+	<footer>
+        <div class="copyright">
+        	<div class="container">
+        		<p>BotGIT V 1.0 Desarrollado por Leonel Becerra para VenCERT</p>
+        	</div>
+        </div>
+	</footer>
+	
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</body>
+</html>
