@@ -12,6 +12,7 @@ sys.path.append("../bdatos")
 from PyQt4 import Qt
 from PyQt4       import QtCore,QtGui, QtSql
 from PyQt4.QtCore import QThreadPool
+
 #Obj
 from Crawler import Crawler,Araña
 from almacenador import Almacenador
@@ -329,8 +330,14 @@ class VentanaMain(QtGui.QMainWindow):
 		self.accion_mostrar_estadisticas_cambios.setToolTip("Mostrar cambios detectados")
 		self.accion_mostrar_estadisticas_cambios.triggered.connect(self.mostrarEstadisticasCambios)
 
+		self.accion_mostrar_ayuda = QtGui.QAction("Manual de usuario", self.ui)
+		self.accion_mostrar_ayuda.setStatusTip("Mostrar manual de usuario")
+		self.accion_mostrar_ayuda.setToolTip("Mostrar manual de usuario")
+		self.accion_mostrar_ayuda.triggered.connect(self.mostrarAyuda)
+
 		#-Add acciones
 		self.ui.menuOpciones.addAction(self.accion_set_timeout)
+		#Opciones
 		#Ministerios
 		self.ui.menuOpciones.addSeparator()
 		self.ui.menuOpciones.addAction(self.accion_filtrar_portales_ministerios)
@@ -343,14 +350,17 @@ class VentanaMain(QtGui.QMainWindow):
 		self.ui.menuOpciones.addSeparator()
 		self.ui.menuOpciones.addAction(self.accion_editar_palabras_clave)
 
+		#Estadisticas
 		self.ui.menuEstadisticas.addAction(self.accion_mostrar_estadisticas_cambios)
+
+		#Ayuda
+		self.ui.menuAyuda.addAction(self.accion_mostrar_ayuda)
 
 		#---------------------------------------------------------------------------------------------------
 
 		#Dialogos reusables
 		self.msgBox = QtGui.QMessageBox()
 		self.barraProgreso = Dialogo_Progreso()
-		#self.barraProgreso.dialogo.hide()
 		
 		#Conectando botones
 		self.ui.btn_seleccionar_todos.clicked.connect(self.boton_seleccionar_todos_clicked)
@@ -1300,6 +1310,9 @@ class VentanaMain(QtGui.QMainWindow):
 				#if not lista[i]['diffAceptado']:
 				#print("*******entra cambio con",lista[i]['url'])
 				baseDatos.ingresar_cambio(lista[i]['ultPorcCambio'],lista[i]['estatus'],lista[i]['url'])
+
+	def mostrarAyuda(self):
+		webbrowser.open(os.path.join(os.getcwd(), '..','manual','index.html'))
 
 	def pruebas(self):
 		logging.debug("Función de pruebas")
