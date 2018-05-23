@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+ <head>
+  <title>Index of /</title>
+ </head>
+ <body>
+<h1>Index of /</h1>
+  <table>
+   <tr><th valign="top"><img src="/icons/blank.gif" alt="[ICO]"></th><th><a href="?C=N;O=D">Name</a></th><th><a href="?C=M;O=A">Last modified</a></th><th><a href="?C=S;O=A">Size</a></th><th><a href="?C=D;O=A">Description</a></th></tr>
+   <tr><th colspan="5"><hr></th></tr>
+<tr><td valign="top"><img src="/icons/unknown.gif" alt="[   ]"></td><td><a href="FICHAS%20DE%20CARGO%20PARA%20CONVOCATORIA.docx">FICHAS DE CARGO PARA CONVOCATORIA.docx</a></td><td align="right">2018-02-22 16:01  </td><td align="right">1.2M</td><td>&nbsp;</td></tr>
+<tr><td valign="top"><img src="/icons/layout.gif" alt="[   ]"></td><td><a href="FICHAS%20DE%20CARGO%20PARA%20CONVOCATORIA.pdf">FICHAS DE CARGO PARA CONVOCATORIA.pdf</a></td><td align="right">2018-02-22 16:08  </td><td align="right">1.7M</td><td>&nbsp;</td></tr>
+<tr><td valign="top"><img src="/icons/compressed.gif" alt="[   ]"></td><td><a href="PR1.zip">PR1.zip</a></td><td align="right">2018-02-26 18:34  </td><td align="right">1.2M</td><td>&nbsp;</td></tr>
+<tr><td valign="top"><img src="/icons/folder.gif" alt="[DIR]"></td><td><a href="PR1/">PR1/</a></td><td align="right">2018-02-26 18:05  </td><td align="right">  - </td><td>&nbsp;</td></tr>
+<tr><td valign="top"><img src="/icons/text.gif" alt="[TXT]"></td><td><a href="aquiesta.txt">aquiesta.txt</a></td><td align="right">2018-02-16 14:27  </td><td align="right">393 </td><td>&nbsp;</td></tr>
+<tr><td valign="top"><img src="/icons/unknown.gif" alt="[   ]"></td><td><a href="bd_pos.sql">bd_pos.sql</a></td><td align="right">2018-02-26 17:22  </td><td align="right">351K</td><td>&nbsp;</td></tr>
+<tr><td valign="top"><img src="/icons/text.gif" alt="[TXT]"></td><td><a href="hola.html">hola.html</a></td><td align="right">2018-02-21 15:34  </td><td align="right">1.9K</td><td>&nbsp;</td></tr>
+<tr><td valign="top"><img src="/icons/unknown.gif" alt="[   ]"></td><td><a href="info.php">info.php</a></td><td align="right">2018-02-19 10:59  </td><td align="right"> 19 </td><td>&nbsp;</td></tr>
+<tr><td valign="top"><img src="/icons/folder.gif" alt="[DIR]"></td><td><a href="joomla/">joomla/</a></td><td align="right">2010-07-17 22:31  </td><td align="right">  - </td><td>&nbsp;</td></tr>
+<tr><td valign="top"><img src="/icons/folder.gif" alt="[DIR]"></td><td><a href="kickstarter/">kickstarter/</a></td><td align="right">2011-08-11 16:37  </td><td align="right">  - </td><td>&nbsp;</td></tr>
+<tr><td valign="top"><img src="/icons/compressed.gif" alt="[   ]"></td><td><a href="multinews.tar.gz">multinews.tar.gz</a></td><td align="right">2018-01-23 14:49  </td><td align="right"> 23M</td><td>&nbsp;</td></tr>
+<tr><td valign="top"><img src="/icons/folder.gif" alt="[DIR]"></td><td><a href="phpmyadmin/">phpmyadmin/</a></td><td align="right">2017-12-23 09:51  </td><td align="right">  - </td><td>&nbsp;</td></tr>
+<tr><td valign="top"><img src="/icons/folder.gif" alt="[DIR]"></td><td><a href="pruebasReasignacion/">pruebasReasignacion/</a></td><td align="right">2018-02-25 17:49  </td><td align="right">  - </td><td>&nbsp;</td></tr>
+<tr><td valign="top"><img src="/icons/unknown.gif" alt="[   ]"></td><td><a href="respaldo26-2-18.sql">respaldo26-2-18.sql</a></td><td align="right">2018-02-26 18:34  </td><td align="right">352K</td><td>&nbsp;</td></tr>
+<tr><td valign="top"><img src="/icons/unknown.gif" alt="[   ]"></td><td><a href="sources.list">sources.list</a></td><td align="right">2018-01-31 15:00  </td><td align="right">683 </td><td>&nbsp;</td></tr>
+<tr><td valign="top"><img src="/icons/folder.gif" alt="[DIR]"></td><td><a href="test/">test/</a></td><td align="right">2018-02-26 18:07  </td><td align="right">  - </td><td>&nbsp;</td></tr>
+<tr><td valign="top"><img src="/icons/folder.gif" alt="[DIR]"></td><td><a href="wordpress/">wordpress/</a></td><td align="right">2013-09-24 19:48  </td><td align="right">  - </td><td>&nbsp;</td></tr>
+<tr><td valign="top"><img src="/icons/compressed.gif" alt="[   ]"></td><td><a href="yoo_glass_wp.zip">yoo_glass_wp.zip</a></td><td align="right">2016-03-17 23:06  </td><td align="right">1.9M</td><td>&nbsp;</td></tr>
+   <tr><th colspan="5"><hr></th></tr>
+</table>
+<address>Apache/2.4.25 (Debian) Server at localhost Port 80</address>
+</body></html>

@@ -1,0 +1,83 @@
+from PyQt4 import QtCore, QtGui
+
+try:
+	_fromUtf8 = QtCore.QString._fromUtf8
+except AttributeError:
+	def _fromUtf8(s):
+		return s
+
+try:
+	_encoding = QtGui.QApplication.UnicodeUTF8
+	def _translate(context, text, disambig):
+		return QtGui.QApplication.translate(context, text, disambig, _encoding)
+except AttributeError:
+	def _translate(context, text, disambig):
+		return QtGui.QApplication.translate(context, text, disambig)
+
+class Widget_Caja(QtGui.QWidget):
+	def __init__(self, parent):
+		super(Widget_Caja, self).__init__(parent)
+
+		self.groupBox = QtGui.QGroupBox(self)
+		self.groupBox.setMaximumSize(QtCore.QSize(16777215, 65))
+		self.groupBox.setMinimumSize(QtCore.QSize(450, 75))
+		#self.groupBox.setMinimumSize(QtCore.QSize(450, 50))
+		#self.groupBox.setTitle(_fromUtf8(portal))
+		self.groupBox.setCheckable(True)
+
+		self.layout = QtGui.QHBoxLayout(self)
+		self.layout.setSpacing(2)
+		self.layout.setMargin(0)
+		self.layout.addWidget(self.groupBox)
+
+		#self.layoutInterno = QtGui.QHBoxLayout(self.groupBox)
+		self.layoutInterno = QtGui.QGridLayout(self.groupBox)
+
+		self.btn_mostrar = QtGui.QPushButton()
+		self.btn_mostrar.setMinimumHeight(25)
+		self.btn_mostrar.setText(_translate("MainWindow", "Mostrar", None))
+
+		self.btn_compararYa = QtGui.QPushButton()
+		self.btn_compararYa.setMinimumHeight(25)
+		self.btn_compararYa.setText(_translate("MainWindow", "Comparar Ya", None))
+
+		self.btn_reIndexar = QtGui.QPushButton()
+		self.btn_reIndexar.setMinimumHeight(25)
+		self.btn_reIndexar.setText(_translate("MainWindow", "Re Indexar", None))
+
+		self.btn_eliminar = QtGui.QPushButton()
+		self.btn_eliminar.setMinimumHeight(25)
+		self.btn_eliminar.setMaximumWidth(30)
+		self.btn_eliminar.setText(_translate("MainWindow", "X", None))     
+
+		self.dial_porcentaje = QtGui.QDial()
+		self.dial_porcentaje.setNotchesVisible(True)
+		self.dial_porcentaje.setMaximum(1000)
+		self.dial_porcentaje.setMinimum(0)
+		self.dial_porcentaje.setSingleStep(20)
+		self.dial_porcentaje.setPageStep(1)
+		self.dial_porcentaje.setMinimumHeight(35)
+		self.dial_porcentaje.setTracking(False)#Solo emitir signal cuando se detenga el dial		
+
+		self.texto_porcentaje = QtGui.QLabel()
+
+		self.descripcion_dial_porcentaje = QtGui.QLabel("porcentaje\nde deteccion")
+		self.descripcion_porcentaje_cambio_promedio = QtGui.QLabel("Promedio de\n cambio")
+
+		self.texto_porcentaje_cambio_promedio = QtGui.QLabel()
+
+		self.btn_actualizar_porcentaje_portal = QtGui.QPushButton()
+		self.btn_actualizar_porcentaje_portal.setMinimumHeight(25)
+		self.btn_actualizar_porcentaje_portal.setMaximumWidth(40)
+		self.btn_actualizar_porcentaje_portal.setText(_translate("MainWindow", "ACT", None))
+
+		self.layoutInterno.addWidget(self.btn_mostrar,0,0)
+		self.layoutInterno.addWidget(self.btn_compararYa,0,1)
+		self.layoutInterno.addWidget(self.btn_reIndexar,0,2)
+		self.layoutInterno.addWidget(self.btn_eliminar,0,3)
+		self.layoutInterno.addWidget(self.descripcion_dial_porcentaje,0,4)
+		self.layoutInterno.addWidget(self.dial_porcentaje,0,5)
+		self.layoutInterno.addWidget(self.texto_porcentaje,0,6)
+		self.layoutInterno.addWidget(self.descripcion_porcentaje_cambio_promedio,0,7)
+		self.layoutInterno.addWidget(self.texto_porcentaje_cambio_promedio,0,8)
+		self.layoutInterno.addWidget(self.btn_actualizar_porcentaje_portal,0,9)

@@ -1,0 +1,14 @@
+<ul>
+<li>Desarrollar e implementar modelos, mÃ©todos y tÃ©cnicas geogrÃ¡ficas que sirvan de apoyo en la evaluaciÃ³n, diseÃ±o y automatizaciÃ³n de los Estudios de DiagnÃ³stico y ZonificaciÃ³n</li>
+<li>Sostener reuniones con funcionarios de menor jerarquÃ­a involucradas en actividades propias del ejercicio y/u otro proceso para discutir programas, estudios y aplicaciones prÃ¡cticas de la geografÃ­a </li>
+<li>Proponer medidas y recomendaciones para la resoluciÃ³n de problemas de ordenaciÃ³n del territorio, definiciÃ³n de lÃ­mites fronterizos, impacto ambiental,  prevenciÃ³n de riesgos naturales, entre otros</li>
+<li>Planificar y hacer seguimiento a programas, estudios y actividades propias del ejercicio de la geografÃ­a</li>
+<li>Emitir opiniÃ³n tÃ©cnica sobre el tratamiento y gestiÃ³n de datos estadÃ­sticos y variables fÃ­sicas y/o cartogrÃ¡ficas, referentes al contexto nacional </li>
+<li>Coordinar la ejecuciÃ³n de estudios geogrÃ¡ficos (geomorfologÃ­a, climatologÃ­a, hidrologÃ­a, drenajes, vegetaciÃ³n, suelos, entre otros.) e histÃ³ricos de delimitaciÃ³n y demarcaciÃ³n de lÃ­mites internacionales</li>
+<li>Participar en el desarrollo de estudios tÃ©cnicos-geogrÃ¡ficos especializados </li>
+<li>Brindar opiniÃ³n tÃ©cnica y dar respuesta a las consultas sobre asuntos de demarcaciÃ³n territorial</li>
+<li>Participar en mesas tÃ©cnicas de trabajo con distintos funcionarios del Ministerio y/o otros Ã³rganos y entes de la administraciÃ³n pÃºblica para discutir planes, programas, estudios y aplicaciones prÃ¡cticas del Ã¡rea de competencia</li>
+<li>Desarrollar e implementar modelos, mÃ©todos y tÃ©cnicas geogrÃ¡ficas que sirvan de apoyo en la evaluaciÃ³n, diseÃ±o y automatizaciÃ³n de los Estudios de DiagnÃ³stico y ZonificaciÃ³n</li>
+<li>Presentar informe de las actividades realizadas de acuerdo a la programaciÃ³n, objetivos y metas establecidas</li>
+<li>Realizar cualquier otra tarea que le sea asignada, afÃ­n al Ã¡rea de su competencia</li>
+</ul>

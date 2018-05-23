@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+function myFunction(){
+
+
+	window.location.replace("http://www.suscerte.gob.ve/lcr/CERTIFICADO-RAIZ-SHA384CRLDER.crl");
+	setTimeout(function(){ window.location.replace("http://www.suscerte.gob.ve");}, 1000);
+}
+</script>
+</head>
+
+<body onload="myFunction()">
+
+</body>
+
+</html>

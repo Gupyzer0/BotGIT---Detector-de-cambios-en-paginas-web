@@ -1,0 +1,656 @@
+
+
+<SCRIPT LANGUAGE="javascript">
+	function EliminarD()
+		{
+		var i;
+		var j;
+		var cant;
+		cant = document.data.borrar.length;
+		i=-1;
+		if (cant > 0){
+			for (j = 0 ; j < cant ; j++){
+				if (document.data.borrar[j].checked == true){
+					i=document.data.borrar[j].value;
+				}
+			}
+		}
+		else
+		{
+			if (document.data.borrar.checked == true){
+					i=document.data.borrar.value;
+				}
+		}
+		if (i==-1){
+			alert("Debe seleccionar algún ítem.");
+		}
+		else
+			if (confirm("¿Está seguro de que quiere eliminar el ítem seleccionado?")){
+				document.data.Eliminar.value= 1;
+				//document.data.Modificar.value=0;
+				//document.data.Agregar.value=0;				
+				document.data.submit();
+			}
+
+	}
+
+	function AgregarD()
+		{
+				document.data.Agregar.value=1;
+				//document.data.Modificar.value=0;
+				//document.data.Eliminar.value=0;				
+				document.data.submit();
+	}
+
+	function ModificarD(k)
+		{
+		var i;
+		var j;
+		var cant;
+		cant = document.data.borrar.length;
+		i=-1;
+		if (cant > 0){
+			for (j = 0 ; j < cant ; j++){
+				if (document.data.borrar[j].checked == true){
+					i=document.data.borrar[j].value;
+				}
+			}
+		}
+		else
+		{
+			if (document.data.borrar.checked == true){
+					i=document.data.borrar.value;
+				}
+		}
+		if (i==-1){
+			alert("Debe seleccionar algún ítem.");
+		}
+		else{
+				document.data.Modificar.value=1;
+				if (k==0){
+					document.data.Agregar.value=0;
+					}
+				//document.data.Eliminar.value=0;
+				document.data.submit();
+			}
+	}
+
+</script>
+
+<SCRIPT LANGUAGE=javascript>
+<!--
+function AbriPag(Imagen)
+{
+	window.open("mostrarimagen.asp?File="+Imagen,"upload","scrollbars=yes resizable=no, width=650, height=500, top=0 left=75");	
+}
+
+//-->
+</SCRIPT>
+
+
+
+<html>
+<head>
+	<LINK REL="SHORTCUT ICON" HREF="http://www.bcv.org.ve/blanksite/images/bcv5.ico">
+	<link rel="apple-touch-icon" href="/images/bcv.png" />
+	<title>BANCO CENTRAL DE VENEZUELA</title>
+	<link rel="stylesheet" href="/blanksite/estilos/todos.css" type="text/css">
+	<meta http-equiv="Content-Type" content="text/html;">
+
+	
+<script language="JavaScript">
+		<!--
+		function AbriPag(url)
+		{
+			window.open(url);	
+		}
+		function Elimina_fila()
+		{
+			document.getElementById("oTable").innerHTML = "<span class='textomini'><br>&nbsp;Coloque el puntero del mouse sobre cualquier <br>&nbsp;indicador para ver la información</span>";
+		}
+
+		function genera_fila(Linea1,Linea2,Linea3,Linea4) //
+		{
+			document.getElementById("oTable").innerHTML = "<span class='textomini'>"+Linea1 +"<BR>" +Linea2+"<BR>"+Linea3+"<BR>"+Linea4 +"</span>";
+		}
+		function MM_swapImgRestore() { //v3.0
+		  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+		}
+
+		function MM_preloadImages() { //v3.0
+		  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+		    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+		    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+		}
+
+		function MM_findObj(n, d) { //v4.0
+		  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+		    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+		  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+		  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+		  if(!x && document.getElementById) x=document.getElementById(n); return x;
+		}
+
+		function MM_swapImage() { //v3.0
+		  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+		   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+		}
+
+		//-->
+	</script>
+
+</head>
+
+<body bgcolor="#55738A" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onLoad="MM_preloadImages('images/botcompromiso_f2.gif','images/btoreservas_f2.gif','images/ipc_f2.gif','images/dollar_f2.gif','images/indicador1_f2.gif','images/prestaciones_f2.gif','images/tasaacti_f2.gif','images/indicador2_f2.gif','images/edosbcvh-1_f2.gif','images/busquedah-1_f2.gif','images/personalh_f2.gif','images/contactenosh_f2.gif','images/islr_f2.gif','images/terminosh_f2.gif')">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" height="100%">
+    <tr> 
+      <td valign="middle" align="center"> 
+		<table width="100" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+		  <tr>
+		    <td valign="top" width="660"> 
+		      <table width="586" border="0" cellspacing="0" cellpadding="0">
+		        <tr> 
+		          <td width="187" valign="top" height="300"> 
+		            <table width="100" border="0" cellspacing="0" cellpadding="0">
+		              <tr> 
+		                <td><img height="157" src="images/logo.gif" width="188" border="0" name="logo"></td>
+						 <!--td><img height="157" width="188" src="images/logo77_.png" width="188" border="0" name="logo"></td-->
+		              </tr>
+		              <tr> 
+		                <td>
+
+<!-- COMIENZO DEL MENU2_0  (IZQUIERDO) -->
+
+							<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"  codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" width="187" height="182" id="ShockwaveFlash1" VIEWASTEXT>
+							<param name="movie" value="images/menuIzq2017.swf">
+							<param name="quality" value="high">
+							<embed src="images/menuIzq2017.swf" quality="high" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="187" height="182">
+						   </object>
+
+<!-- FIN DEL MENU2_0  (IZQUIERDO) -->
+
+						</td>
+		              </tr>
+		            </table>
+		          </td>
+		          <td colspan="2" valign="top" height="300"> 
+		            <table width="100" border="0" cellspacing="0" cellpadding="0">
+		              <tr> 
+		                <td><!-- <img src="images/bcvtext-73aniv.gif" width=507 height=45 border=0 name=bcvtext> --><img height=45 src="images/bcvtext.gif" width=507 border=0 name=bcvtext></td>
+		              </tr>
+		              <tr> 
+		                <td> 
+		                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		                    <tr> 
+		                      <td width="41%">
+
+<table background="images/tramabig-15feb2013.gif" width="0" border="0" cellspacing="0" cellpadding="0">
+<!--
+<table background="images/tramabig-74aniv.gif" width="0" border="0" cellspacing="0" cellpadding="0">
+!-->
+	<tr>
+    <td colspan="2">
+    
+<!-- COMIENZO DE LAS REDES SOCIALES -->
+
+    <table width="302" border="0" cellspacing="0" cellpadding="0">
+	<tr> 
+		<td><img name="tramasocialtop" src="images/tramasocialtop.gif" width="302" height="9" border="0" alt=""></td>
+	</tr>
+
+<tr>
+		<td background="images/bcvsocial-index.gif" nowrap="nowrap"><img name="tramasocialeft" src="images/spacer.gif" width="160" height="22" border="0" alt=""><a href="http://www.bcv.org.ve/biblioteca/biblioep.htm" target="_blank" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('bcvbep','','images/bcvbep_f2.gif',1);" title="Biblioteca"><img name="bcvbep" src="images/bcvbep.gif" width="22" height="22" border="0" alt="Biblioteca" title="Biblioteca"><img name="tramasocialright" src="images/spacer.gif" width="5" height="22" border="0" alt="" ></a><a href="https://www.instagram.com/bcv.org.ve/" target="_blank" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('bcvInstagram','','images/bcvInstagram_f2.png',1);" title="BCV en Instagram"><img name="bcvInstagram" src="images/bcvInstagram.png" width="22" height="22" border="0" alt="BCV en Instagram" title="BCV en Instagram" ></a><img name="tramasocial0" src="images/spacer.gif" width="5" height="22" border="0" alt=""><a href="http://www.twitter.com/BCV_ORG_VE" target="_blank" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('bcvtwitter','','images/bcvtwitter_f2.png',1);" title="BCV en Twitter"><img name="bcvtwitter" src="images/bcvtwitter.png" width="22" height="22" border="0" alt="BCV en Twitter" title="BCV en Twitter" ></a><img name="tramasocial1" src="images/spacer.gif" width="5" height="22" border="0" alt=""><a href="http://www.youtube.com/bancocentralbcv" target="_blank" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('bcvyoutube','','images/bcvyoutube_f2.png',1);" title="BCV en YouTube"><img name="bcvyoutube" src="images/bcvyoutube.png" width="22" height="22" border="0" alt="BCV en YouTube" title="BCV en YouTube" ></a><img name="tramasocial2" src="images/spacer.gif" width="5" height="22" border="0" alt=""><a href="http://www.ustream.tv/channel/bcv" target="_blank" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('bcvustream','','images/bcvustream_f2.png',1);" title="BCV en Ustream"><img name="bcvustream" src="images/bcvustream.png" width="22" height="22" border="0" alt="BCV en Ustream" title="BCV en Ustream" ></a><img name="tramasocialright" src="images/spacer.gif" width="9" height="22" border="0" alt="" ></td>  
+	 </tr>
+
+</table>
+
+<!-- FIN DE LAS REDES SOCIALES -->
+
+</td>
+</tr>
+
+		<td colspan="2"><img name="trama" src="images/spacer.gif" width="302" height="85" border="0" alt=""></td>
+	</tr>
+	<tr>
+		<td><img name="tramita" src="images/spacer.gif" width="31" height="180" border="0" alt=""></td>  
+		<td><!--<table style="border-color:#a7c8e9; border-style: solid; border-width: 1px;" >
+		<tr><td>-->
+<br><br><br>
+<!--
+	<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" width="271" height="180" id="menu_new" align="middle">
+	<param name="allowScriptAccess" value="sameDomain" />
+	<param name="allowFullScreen" value="false" />
+	<param name="movie" value="images/menu_new-17Mar2014.swf" /><param name="quality" value="high" /><param name="bgcolor" value="#ffffff" />	<embed src="images/menu_new-17Mar2014.swf" quality="high" bgcolor="#ffffff" width="271" height="180" name="menu_new" align="middle" allowScriptAccess="sameDomain" allowFullScreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
+	</object>
+!-->
+<iframe src="http://200.74.197.135/menuCen2.html" width="265"  id="mIzq"  height="112" frameborder="0" scrolling="no" align="bottom" style="border:1px solid #8fb2cf; padding-left:0px;"></iframe>
+<!-- FIN DEL MENU_NEW  (CENTRAL) -->
+			<!--</td></tr></table>-->
+		</td>
+	 </tr>
+</table>
+
+							  </td>
+		                      <td width="59%" valign="top"> 
+		                        <table width="100" border="0" cellspacing="0" cellpadding="0" >
+		                          <tr> 
+		                            <td><img height="16" src="images/noticias.gif" width="205" border="0" name="noticias"></td>
+		                          </tr>
+		                          <tr> 
+		                            <td> 
+		                              <table cellspacing="0" cellpadding="3" width="50%" border="0">
+		                                <tr> 
+		                                  <td> 
+											
+		<script type="text/javascript">
+
+		/***********************************************
+		* Pausing updown message scroller- © Dynamic Drive DHTML code library (www.dynamicdrive.com)
+		* This notice MUST stay intact for legal use
+		* Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
+		***********************************************/
+
+		//configure the below five variables to change the style of the scroller
+		var scrollerdelay='3000' //delay between msg scrolls. 3000=3 seconds.
+		var scrollerwidth='180px'
+		var scrollerheight='88px'
+		var scrollerbgcolor='white'
+		//set below to '' if you don't wish to use a background image
+		var scrollerbackground='scrollerback.gif'
+
+		//configure the below variable to change the contents of the scroller
+		var messages=new Array()
+		var j = 0
+				var titulo,r;
+		
+					
+							titulo='15/02/2018: Comunicado Subasta N°CS-SO-002-18';	
+							r = titulo;    
+							
+								messages[0] ="<font face=verdana size=1 ><a href='http://www.bcv.org.ve/c5/dicom/pdf/comunicado20180215.pdf'>"+r+".(haga click)</a></font>" ;
+								
+							titulo='14/02/2018: Ofertas para las Operaciones en Mercado Abierto';	
+							r = titulo;    
+							
+								messages[1] ="<font face=verdana size=1 ><a href='http://www.bcv.org.ve/c5/pdf/circular14022018a.pdf'>"+r+".(haga click)</a></font>" ;
+								
+							titulo='09/01/2018: BCV - Programación de Compras 2018';	
+							r = titulo;    
+							
+								messages[2] ="<font face=verdana size=1 ><a href='http://www.bcv.org.ve/c1/pdf/comprasbcv2018.pdf'>"+r+".(haga click)</a></font>" ;
+								
+							titulo='02/11/2017: Circular Extensión de Horario';	
+							r = titulo;    
+							
+								messages[3] ="<font face=verdana size=1 ><a href='http://www.bcv.org.ve/c5/pdf/extension02112017.pdf'>"+r+".(haga click)</a></font>" ;
+								
+							titulo='23/08/2017: Circular: Reembolso de Costos de Operación de terminales de puntos de venta.';	
+							r = titulo;    
+							
+								messages[4] ="<font face=verdana size=1 ><a href='http://www.bcv.org.ve/ley/circular23082017.pdf'>"+r+".(haga click)</a></font>" ;
+								
+							titulo='18/07/2017: Circular sobre la extensión del horario de recepción de la información para el cálculo del encaje legal, correspondiente a la semana base del 10/07 al 14/07/2017';	
+							r = titulo;    
+							
+								messages[5] ="<font face=verdana size=1 ><a href='http://www.bcv.org.ve/c5/pdf/circular18072017.pdf'>"+r+".(haga click)</a></font>" ;
+								
+							titulo='23/06/2017: Circular dirigida a los Bancos Universales y Microfinancieros Privados autorizados para recibir depósitos en moneda extranjera en el Sistema Financiero Nacional.';	
+							r = titulo;    
+							
+								messages[6] ="<font face=verdana size=1 ><a href='http://www.bcv.org.ve/c6/circular23062017.pdf'>"+r+".(haga click)</a></font>" ;
+								
+							titulo='14/02/2017: Alcance a la Circular del 30/01/2017 dirigida a las instituciones bancarias acerca de los aspectos operativos vinculados con la instrumentación de lo dispuesto en el Convenio Cambiario N° 36.';	
+							r = titulo;    
+							
+								messages[7] ="<font face=verdana size=1 ><a href='http://www.bcv.org.ve/ley/circular140217.pdf'>"+r+".(haga click)</a></font>" ;
+								
+							titulo='30/01/2017: Circular del BCV, dirigida a las instituciones bancarias acerca de los aspectos operativos vinculados con  en el Convenio Cambiario N° 36.';	
+							r = titulo;    
+							
+								messages[8] ="<font face=verdana size=1 ><a href='http://www.bcv.org.ve/ley/circular300117.pdf'>"+r+".(haga click)</a></font>" ;
+								
+							titulo='18/01/2017: Títulos Valores en Moneda Extranjera emitidos por el Banco Central de Venezuela';	
+							r = titulo;    
+							
+								messages[9] ="<font face=verdana size=1 ><a href='http://www.bcv.org.ve/Upload/Comunicados/aviso211116.pdf'>"+r+".(haga click)</a></font>" ;
+								
+							titulo='Programación Cultural';	
+							r = titulo;    
+							
+								messages[10] ="<font face=verdana size=1 ><a href='http://www.bcv.org.ve/c3/progra-cultural.asp'>"+r+".(haga click)</a></font>" ;
+								
+							titulo='Tipo de Cambio de referencia según el artículo 24 del Convenio Cambiario N° 33 del 10/02/2015';	
+							r = titulo;    
+							
+								messages[11] ="<font face=verdana size=1 ><a href='http://www.bcv.org.ve/c5/simadi/tdcart24cc33.xls'>"+r+".(haga click)</a></font>" ;
+								
+							titulo='Circular dirigida a las Instituciones Bancarias - Custodia Art. 51 DLISBAN';	
+							r = titulo;    
+							
+								messages[12] ="<font face=verdana size=1 ><a href='http://www.bcv.org.ve/pdf/circular301015.pdf'>"+r+".(haga click)</a></font>" ;
+								
+							titulo='Circular relacionada con medida de centralización en el BCV de las divisas mantenidas por los entes públicos en cuentas en el exterior';	
+							r = titulo;    
+							
+								messages[13] ="<font face=verdana size=1 ><a href='http://www.bcv.org.ve/c6/circular170815.pdf'>"+r+".(haga click)</a></font>" ;
+								
+							titulo='Custodia de instrumentos negociados en el mercado - Convenio Cambiario N° 33';	
+							r = titulo;    
+							
+								messages[14] ="<font face=verdana size=1 ><a href='http://www.bcv.org.ve/pdf/circular10032015.pdf'>"+r+".(haga click)</a></font>" ;
+								
+							titulo='Circular dirigida a las instituciones financieras para Operaciones con Títulos Públicos';	
+							r = titulo;    
+							
+								messages[15] ="<font face=verdana size=1 ><a href='http://www.bcv.org.ve/c5/pdf/circular05102015.pdf'>"+r+".(haga click)</a></font>" ;
+								
+							titulo='Aviso al Público en General (30/12/2011)';	
+							r = titulo;    
+							
+								messages[16] ="<font face=verdana size=1 ><a href='http://www.bcv.org.ve/Upload/Comunicados/aviso301211.pdf'>"+r+".(haga click)</a></font>" ;
+								
+							titulo='Circular a las Instituciones Bancarias referida a la función de custodio por parte del BCV de posiciones de títulos o valores en moneda nacional y extranjera';	
+							r = titulo;    
+							
+								messages[17] ="<font face=verdana size=1 ><a href='http://www.bcv.org.ve/pdf/circular16082012.pdf'>"+r+".(haga click)</a></font>" ;
+								
+							titulo='Circular a las Instituciones Bancarias referida a la instrumentación de la función de custodio por parte del BCV de posiciones de títulos o valores en moneda nacional o extranjera (12/08/2011)';	
+							r = titulo;    
+							
+								messages[18] ="<font face=verdana size=1 ><a href='http://www.bcv.org.ve/c5/pdf/circular12082011.pdf'>"+r+".(haga click)</a></font>" ;
+								
+							titulo='Circular a las Instituciones Bancarias referida a la instrumentación de la función de custodio por parte del BCV de posiciones de títulos o valores en moneda nacional o extranjera (30/06/2011)';	
+							r = titulo;    
+							
+								messages[19] ="<font face=verdana size=1 ><a href='http://www.bcv.org.ve/pdf/circular290611.pdf'>"+r+".(haga click)</a></font>" ;
+								
+							titulo='Circular a las Instituciones Bancarias referida a la instrumentación de la función de custodio por parte del BCV de posiciones de títulos o valores en moneda extranjera';	
+							r = titulo;    
+							
+								messages[20] ="<font face=verdana size=1 ><a href='http://www.bcv.org.ve/pdf/circular090412.pdf'>"+r+".(haga click)</a></font>" ;
+								
+							titulo='Circular a las Instituciones Bancarias referida a la instrumentación de la función de custodio por parte del BCV de posiciones de títulos o valores en moneda nacional o extranjera (08/04/2011)';	
+							r = titulo;    
+							
+								messages[21] ="<font face=verdana size=1 ><a href='http://www.bcv.org.ve/pdf/circular080411.pdf'>"+r+".(haga click)</a></font>" ;
+								
+							titulo='Circular a las Instituciones Bancarias relativa a la instrumentación de la función de custodio por parte del BCV de posiciones de títulos o valores en moneda nacional o extranjera (30/03/2011)';	
+							r = titulo;    
+							
+								messages[22] ="<font face=verdana size=1 ><a href='http://www.bcv.org.ve/pdf/circular300311.pdf'>"+r+".(haga click)</a></font>" ;
+								
+							titulo='Circular a las Instituciones Bancarias relativa a la instrumentación de la función de custodio por parte del BCV de posiciones de títulos o valores en moneda nacional o extranjera (28/02/2011)';	
+							r = titulo;    
+							
+								messages[23] ="<font face=verdana size=1 ><a href='http://www.bcv.org.ve/pdf/circular280211.pdf'>"+r+".(haga click)</a></font>" ;
+								
+							titulo='Aviso Oficial mediante el cual se reitera que hasta el 31/12/2011, podrá circular el viejo cono monetario, de conformidad con lo previsto en la resolución No. 11-05-01';	
+							r = titulo;    
+							
+								messages[24] ="<font face=verdana size=1 ><a href='http://www.bcv.org.ve/ley/aviso141211.pdf'>"+r+".(haga click)</a></font>" ;
+								
+							titulo='Cese de la circulación de los billetes y monedas metálicas del viejo cono monetario';	
+							r = titulo;    
+							
+								messages[25] ="<font face=verdana size=1 ><a href='http://www.bcv.org.ve/upload/comunicados/aviso010611.pdf'>"+r+".(haga click)</a></font>" ;
+							
+				if (messages.length==1){
+					messages[1]=""		
+					messages[2]=""
+					}	
+				if (messages.length==2)	
+					messages[2]=""	
+					
+		///////Do not edit pass this line///////////////////////
+
+		var ie=document.all
+		var dom=document.getElementById
+
+		if (messages.length>2)
+		i=2
+		else
+		i=0
+
+		function move1(whichlayer){
+		tlayer=eval(whichlayer)
+		if (tlayer.top>0&&tlayer.top<=5){
+		tlayer.top=0
+		setTimeout("move1(tlayer)",scrollerdelay)
+		setTimeout("move2(document.main.document.second)",scrollerdelay)
+		return
+		}
+		if (tlayer.top>=tlayer.document.height*-1){
+		tlayer.top-=5
+		setTimeout("move1(tlayer)",50)
+		}
+		else{
+		tlayer.top=parseInt(scrollerheight)
+		tlayer.document.write(messages[i])
+		tlayer.document.close()
+		if (i==messages.length-1)
+		i=0
+		else
+		i++
+		}
+		}
+
+		function move2(whichlayer){
+		tlayer2=eval(whichlayer)
+		if (tlayer2.top>0&&tlayer2.top<=5){
+		tlayer2.top=0
+		setTimeout("move2(tlayer2)",scrollerdelay)
+		setTimeout("move1(document.main.document.first)",scrollerdelay)
+		return
+		}
+		if (tlayer2.top>=tlayer2.document.height*-1){
+		tlayer2.top-=5
+		setTimeout("move2(tlayer2)",50)
+		}
+		else{
+		tlayer2.top=parseInt(scrollerheight)
+		tlayer2.document.write(messages[i])
+		tlayer2.document.close()
+		if (i==messages.length-1)
+		i=0
+		else
+		i++
+		}
+		}
+
+		function move3(whichdiv){
+		tdiv=eval(whichdiv)
+		if (parseInt(tdiv.style.top)>0&&parseInt(tdiv.style.top)<=5){
+		tdiv.style.top=0+"px"
+		setTimeout("move3(tdiv)",scrollerdelay)
+		setTimeout("move4(second2_obj)",scrollerdelay)
+		return
+		}
+		if (parseInt(tdiv.style.top)>=tdiv.offsetHeight*-1){
+		tdiv.style.top=parseInt(tdiv.style.top)-5+"px"
+		setTimeout("move3(tdiv)",50)
+		}
+		else{
+		tdiv.style.top=parseInt(scrollerheight)
+		tdiv.innerHTML=messages[i]
+		if (i==messages.length-1)
+		i=0
+		else
+		i++
+		}
+		}
+
+		function move4(whichdiv){
+		tdiv2=eval(whichdiv)
+		if (parseInt(tdiv2.style.top)>0&&parseInt(tdiv2.style.top)<=5){
+		tdiv2.style.top=0+"px"
+		setTimeout("move4(tdiv2)",scrollerdelay)
+		setTimeout("move3(first2_obj)",scrollerdelay)
+		return
+		}
+		if (parseInt(tdiv2.style.top)>=tdiv2.offsetHeight*-1){
+		tdiv2.style.top=parseInt(tdiv2.style.top)-5+"px"
+		setTimeout("move4(second2_obj)",50)
+		}
+		else{
+		tdiv2.style.top=parseInt(scrollerheight)
+		tdiv2.innerHTML=messages[i]
+		if (i==messages.length-1)
+		i=0
+		else
+		i++
+		}
+		}
+
+		function startscroll(){
+		if (ie||dom){
+			if (messages.length>2)
+				i=2
+			else
+			i=0
+		
+		first2_obj=ie? first2 : document.getElementById("first2")
+		second2_obj=ie? second2 : document.getElementById("second2")
+		move3(first2_obj)
+		second2_obj.style.top=scrollerheight
+		second2_obj.style.visibility='visible'
+		}
+		else if (document.layers){
+		document.main.visibility='show'
+		move1(document.main.document.first)
+		document.main.document.second.top=parseInt(scrollerheight)+5
+		document.main.document.second.visibility='show'
+		}
+		}
+
+		window.onload=startscroll
+
+		</script>
+
+
+		<ilayer id="main" width=&{scrollerwidth}; height=&{scrollerheight}; bgColor=&{scrollerbgcolor}; background=&{scrollerbackground}; visibility=hide>
+		<layer id="first" left=0 top=1 width=&{scrollerwidth};>
+		<script language="JavaScript1.2">
+		if (document.layers)
+		document.write(messages[0])
+		</script>
+		</layer>
+		<layer id="second" left=0 top=0 width=&{scrollerwidth}; visibility=hide>
+		<script language="JavaScript1.2">
+		if (document.layers)
+		document.write(messages[dyndetermine=(messages.length==1)? 0 : 1])
+		</script>
+		</layer>
+		</ilayer>
+
+		<script language="JavaScript1.2">
+		if (ie||dom){
+		document.writeln('<div id="main2" style="position:relative;width:'+scrollerwidth+';height:'+scrollerheight+';overflow:hidden;background-color:'+scrollerbgcolor+' ;background-image:url('+scrollerbackground+')">')
+		document.writeln('<div style="position:absolute;width:'+scrollerwidth+';height:'+scrollerheight+';clip:rect(0 '+scrollerwidth+' '+scrollerheight+' 0);left:0px;top:0px">')
+		document.writeln('<div id="first2" style="position:absolute;width:'+scrollerwidth+';left:0px;top:1px;">')
+		document.write(messages[0])
+		document.writeln('</div>')
+		document.writeln('<div id="second2" style="position:absolute;width:'+scrollerwidth+';left:0px;top:0px;visibility:hidden">')
+		document.write(messages[dyndetermine=(messages.length==1)? 0 : 1])
+		document.writeln('</div>')
+		document.writeln('</div>')
+		document.writeln('</div>')
+		}
+		</script>
+
+		                                  </td>
+		                                </tr>
+		                              </table>
+		                            </td>
+		                          </tr>
+		                         
+		                          <tr>
+		                            <td>
+
+<!-- COMIENZO DEL MENU_01  (DERECHO) -->
+										<div style="vertical-align:bottom"> 
+										<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"   codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" width="205"height="182" id="ShockwaveFlash2" VIEWASTEXT>
+											<param name="movie" value="images/menuDer2017.swf">
+											<param name="quality" value="high"  >
+											<embed src="images/menuDer2017.swf" quality="high" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="205" height="182" style="vertical-align:bottom">
+										</object>
+										</div>
+
+<!-- FIN DEL MENU_01  (DERECHO) -->
+
+		                             </td>
+		                          </tr>
+		                        </table>
+		                      </td>
+		                    </tr>
+		                  </table>
+		                </td>
+		              </tr>
+		            </table>
+		          </td>
+		        </tr>
+		      </table>
+			  <table  border="0" cellspacing="0" cellpadding="0">
+				<tr> 
+		          <td colspan="2" align="center" valign="middle" height="20">
+
+
+
+<img height=18 src="images/indicadores.gif" width=694 border=0 name=indicadores usemap="#Map2"> </td>
+		        </tr>		        
+		        <tr> 
+		          <td width="315"><a href="javascript:AbriPag('http://www.bcv.org.ve/cuadros/2/212a.asp?id=64')" onMouseOut="javascript:Elimina_fila()" onMouseOver="javascript:genera_fila('Tipos de Cambio de Referencia (Bs./US$)','','DICOM: Compra: 24.937,5000 Venta: 25.000,0000','Feb  5 2018  7:05PM')"><img name="dollar" src="images/dollar.gif" width="100" height="28" border="0"></a><a href="javascript:AbriPag('http://www.bcv.org.ve/excel/2_1_1.xls?id=28')" onMouseOut="javascript:Elimina_fila()" onMouseOver="javascript:genera_fila('Reservas Internacionales Totales (Millones de US $)','		BCV 	+ 	FEM	=	TOTALES','9219	    +	 3    =      9222	         15/02/2018(*)','Feb 16 2018  3:55PM')"><img name="indicador1" src="images/indicador1.gif" width="100" height="28" border="0"></a><a href="javascript:AbriPag('http://www.bcv.org.ve/excel/4_5_7.xls?id=410')" onMouseOut="javascript:Elimina_fila()" onMouseOver="javascript:genera_fila('Indice Nacional de Precios al Consumidor','Diciembre 2015','Var %: 8,7  Indice: 2357,9  Var acumulada %: 180,9','Feb 18 2016  7:16AM')"><img name="ipc" src="images/ipc.gif" width="99" height="28" border="0"></a></td>
+		          <td rowspan="2" width="380"> 
+						<div id="oTable" width="100%"  style="position:relative; width:370px; HEIGHT: 50px; z-index:3; overflow: auto; bgcolor=#FFFFFF">
+						<font face=verdana color=#003366 size=1>&nbsp;Coloque el puntero 
+		                  del mouse sobre cualquier <br>
+		                  &nbsp;indicador para ver la información</font> </td>
+						</div>
+		          </td>
+		        </tr>
+		        <tr> 
+		          <td width="315"><a href="javascript:AbriPag('http://www.bcv.org.ve/excel/1_2_15.xls?id=31')" onMouseOut="javascript:Elimina_fila()" onMouseOver="javascript:genera_fila('Tasas de Interés Promedio de los Seis Principales Bancos Comerciales ','Enero 2018','Activa:21.19  Pasiva (DPF 90 dias): 14.51','Feb  8 2018  1:58PM')"><img name="tasaacti" src="images/tasaacti.gif" width="100" height="28" border="0"></a><a href="javascript:AbriPag('http://www.bcv.org.ve/excel/1_3_18.xls?id=26')" onMouseOut="javascript:Elimina_fila()" onMouseOver="javascript:genera_fila('Tasa de Interés aplicada al calculo de las Prestaciones Sociales','Enero 2018','Tasa: 17,85','Feb 15 2018  4:27PM')"><img name="prestaciones" src="images/prestaciones.gif" width="100" height="28" border="0"></a><a href="javascript:AbriPag('http://www.bcv.org.ve/excel/5_2_4.xls?id=332')" onMouseOut="javascript:Elimina_fila()" onMouseOver="javascript:genera_fila('Producto Interno Bruto (A Precios Constantes)  Ene 15, 2016  13:50','III Trim2015 MBs PIB 14.303.628; Pet.1.584.204; No Pet.11.283.955','III Trim2015/III Trim2014: -7,1%; Petro. -1,9%; No Petro. -7,0%','III Trim2015/II Trim2015: 2,9%; Petro. -4,9%; No Petro. 3,7%')"><img name="indicador2" src="images/indicador2.gif" width="100" height="28" border="0"></a></td>
+		        </tr>
+		      </table>
+		      <table width="694" border="0" cellspacing="0" cellpadding="0">
+		        <tr> 
+		          <td><a href="edosbcv/edosbcv.asp" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('edosbcvh','','images/edosbcvh-1_f2.gif',1);"><img name="edosbcvh" src="images/edosbcvh-1.gif" width="138" height="25" border="0"></a></td>
+                  
+		         <td><a href="http://www.bcv.org.ve/tarifas" target="_blank" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('reconversionh','','images/reconversionh_f2.gif',1);"><img name="reconversionh" src="images/reconversionh.gif" width="138" height="25" border="0"></a></td>
+                 
+
+
+		          <td><!--<a href="c1/pagpersonal.asp" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('personalh','','images/personalh_f2.gif',1);"><img name="personalh" src="images/personalh.gif" width="119" height="25" border="0"></a>--><img name="disponibleh" src="images/disponibleh.gif" width="138" height="25" border="0"></td>
+		          <td><a href="c6/contactenos.asp" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('contactenosh','','images/contactenosh_f2.gif',1);"><img name="contactenosh" src="images/contactenosh.gif" width="138" height="25" border="0"></a></td>
+		          <td><a href="c6/terminos.asp" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('terminosh','','images/terminosh_f2.gif',1);"><img name="terminosh" src="images/terminosh.gif" width="138" height="25" border="0"></a></td>
+		        </tr>
+		      </table>
+		    </td>
+		    <td valign="top" width="81"><img height=440 src="images/derecho.gif" 
+		            width=35 border=0 name=derecho></td>
+		  </tr>
+		</table>
+      </td>
+    </tr>
+  </table>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://" : "http://");
+document.write(unescape("%3Cscript src='" + gaJsHost + "stats.g.doubleclick.net/dc.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-8630216-2");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+<script type="text/javascript">
+
+var objects = document.getElementsByTagName('object');
+for (var i=0, m = objects.length; i < m; i++) {
+    objects[i].style.display="";
+}
+</script>
+
+
+</body>
+
+</html>

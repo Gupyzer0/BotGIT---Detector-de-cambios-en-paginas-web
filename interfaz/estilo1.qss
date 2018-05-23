@@ -1,0 +1,45 @@
+QWidget {
+  background: #221100;
+  color: orange;
+  font: bold 12px serif;
+  border-radius: 3px;
+  border: 2px solid Orange;
+}
+QLabel {
+  border: none;
+  font: 12px monospace;
+}
+QComboBox, QAbstractSpinBox {
+  background: #cc6600;
+  color: #221100;
+}
+QComboBox QAbstractItemView {
+  background: orange;
+}
+QAbstractSpinBox {
+  qproperty-alignment: AlignHCenter;
+  qproperty-buttonSymbols: NoButtons;
+}
+QSlider {
+  border: none;
+}
+QSlider::groove {
+  width: 6px;
+  background: orange;
+  border-radius: 3px;
+}
+QSlider::handle {
+  margin: 0 -5px 0 -0px;
+  width: 20px;
+  height: 6px;
+  background: orange;
+  border-radius: 3px;
+}
+QSlider::add-page {
+  background: orange;
+}
+QSlider::sub-page {
+  background: rgb(92, 46, 0);
+}
+
+
