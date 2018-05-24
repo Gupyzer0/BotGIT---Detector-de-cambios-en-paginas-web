@@ -1,7 +1,0 @@
-QWidget {
-  background: #221100;
-  color: orange;
-  font: bold 12px serif;
-  border-radius: 3px;
-  border: 2px solid Orange;
-}

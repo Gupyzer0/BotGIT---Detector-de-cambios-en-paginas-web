@@ -3,9 +3,18 @@
 <head>
     <meta charset="utf-8">
     <title>Manual Usuario BotGit</title>
-
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet">
+    <style>
+        .dot 
+        {
+            height: 15px;
+            width: 15px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+        }
+    </style>
 </head>
 
 <body>
@@ -48,8 +57,125 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 portfolio-item">
-                
-                
+            <h3>Ejecución</h3>
+            <p>Ir al directorio <b>bin</b> del programa y ejecutar el main.py de esta forma:</p>
+            <code class="laguage-bash" data-lang="bash" style="width:90%">
+                <ul style="list-style-type: none">
+                    <li>Python3 main.py</li>                        
+                </ul>
+            </code>
+            <h3>La Interfaz</h3>
+            <p>la interfaz es bastante simple, consta de un menú, y 2 "sectores", a la izquierda el sector de portales donde controlamos estos y a la derecha el sector de URLs donde controlamos las URLs del portal seleccionado y abajop una consola usada para ver el comportamiento de la aplicación.</p>
+
+            <img src="./imagenes/">
+
+
+            <h3>Ingresando Portales</h3>
+            <p>Antes de ingresar los portales es necesario explicar como están ordenados, es decir existen ministerios que tienen N cantidad de Entes que tienen N cantidad de Portales web y a su vez estos tienen N cantidad de URLs, vendria siendo:</p>
+            <ul>
+                <li>Ministerio</li>
+                <li>Ente</li>
+                <li>Portal</li>
+                <li>URLs</li>
+            </ul>
+
+            <p>Por lo que si quisieramos agregar el portal principal de VenCERT, por ejemplo, debemos de primero agregar la estructura precedente, es decir, el Ministerio y el Ente si es que no están agregados con anterioridad. Para este ejemplo agregaremos toda la estructura para que sirva de ejemplo.</p>
+            
+            <h3>Agregando Ministerios</h3>
+            <p>Haciendo click en el menú de opciones->Editar Ministerios</p>                
+            <img src="./imagenes/">
+
+            <p>Hacemos click en el botón de agregar donde ingresaremos el nombre del ministerio y presionamos aceptar</p>
+
+            <img src="./imagenes/">
+
+            <p>Ahora veremos que el ministerio está en nuestra lista de ministerios</p>
+
+            <h3>Agregando Entes</h3>
+            <p>Ahora que tenemos un nuevo ministerio creado, debemos crear un ente, sabemos que VenCERT pertenece a SUSCERTE así que crearemos el ente SUSCERTE haciendo click en el menú de opciones->Editar Entes</p>
+
+            <img src="./imagenes/">
+
+            <p>Aquí Debemos seleccionar el Ministerio al que pertenece nuestro ente y escribir el nombre de este y luego presionamos aceptar</p>
+
+            <img src="./imagenes/">
+
+            <h3>Agregando Portales</h3>
+            <p>Para agregar un portal hacemos click en el boton <b>"+"</b> que se encuentra en la parte superior izquierda en el sector de portales, ahora debemos darle un nombre al portal e ingresar las primeras URLs a agregar. Solo se necesita 1, que debe ser la raíz del portal, (luego podremos usar la araña web para explorar mas subdirectorios si así lo desearamos) seleccionamos el ministerio correspondiente para que cargue nuestra lista de entes y encontrar el que necesitamos.</p>
+
+            <img src="./imagenes/">
+
+            <p>Una vez que hagamos click en "ok" se iniciará la descarga de la página... </p>
+
+            <h3>Agregando más URLs</h3>
+            <p>Es posible agregar más URLs a un portal haciendo click en el botón <b>"+"</b> del sector de URLs de la interfaz, nos encontraremos con una ventana con un cuadro de texto donde tendremos que ingresar una o más URLs separadas por comas.</p>
+
+            <img src="./imagenes/">
+
+            <h3>Agregando más URLs con la Araña Web</h3>
+            <p>Con algunos portales web es posible que se requiera mayor atención a sus subdirectorios por lo que estos pueden ser agregados manualmente como vimos o podemos usar la araña web par aautomatizar este proceso. Para hacer esto tenemos 2 opciones, agregar URLs con la araña para un solo portal, haciendo click en el botón de <b>Spider</b> de uno de estos o, basandonos en la selección actual de portales y usando el botón <b>Crawl Selec.</b>
+            <br>
+            Cuando lo hagamos, tendremos la interfaz de configuración de la araña web, aquí podemos definir un <a href="desarrolladores.html/#spider">nivel de profundidad</a> determinado para cada portal o hacer primero una selección general de este nivel arrastrando el slider que se encuentra en la parte inferior.</p>
+
+            <img src="./imagenes/">
+
+            <p>Es necesario entender que la exploración de una página web puede <b>tardar mucho</b> por lo que es recomendable usar solo el primer nivel de profundiad e ir seleccionando niveles mayores progresivamente. Esta también es una de las razones por las que solo se permite explorar hasta el quinto nivel de profundidad.</p>
+
+            <h3>¿Cómo comparar un portal en busca de cambios?</h3>
+            <p>Podemos comparar varios portales a la vez, tomando en cuenta los que se encuentran seleccionados y tocando el botón de comparar en la parte superior o haciendo click en el botón de <b>Comparar Ya</b> de cada uno de los portales.</p>
+
+            <img src="./imagenes/">
+
+            <h3>Resultados de una comparación</h3>
+            
+            <img src="./imagenes/">
+
+            <p>Una vez comparados los portales si <b>existe un cambio</b> veremos que las letras de los portales con cambios se pondrán de un color determinado por el tipo de cambio que fué detectado, lo mismo con la columna "diff" de dicho portal. El código de colores es el siguiente:</p>
+            <br>
+
+            <p><span class="dot" style="background-color: #FF0080"></span> Fucsia: implica que se han detectado alguna de las palabras <b>clave</b> definidias en el menú de <b> opcipnes -> editar palabras clave   </b>.</p>
+            
+            <p><span class="dot" style="background-color: red"></span> Rojo: implica que se han detectado diferencias superiores al <b>mínimo de cambio establecido (tolerancia)</b> ya sea en el <b>indice general de cambio</b> o en el <b>indice de cambio de una de las URL</b>, el indice de cambio minimo deberá ser ajustado varias veces hasta llegar a un número ideal de donde las modificaciones normales a la página no sean detectadas. <b>Mientas más actividad o responsividad tenga una página mayor deberá ser este índice.</b></p>
+
+            <p><span class="dot" style="background-color: orange"></span> Naranja: Indica que el servidor no responde o está cometiendo errores. En sí, toda respuesta anómala por parte del servidor entra en esta categoría. Puede ser indicio de una <b>aplicación rota debido a un ataque</b> o una <b>denegación de servicio.</b></p>
+
+            <p><span class="dot" style="background-color: green"></span> Verde: <b>God's in his Heavens, All's Right with the world </b>, Todo funciona bien por acá !.</p>
+
+            <h3>Configurando los índices de cambios</h3>
+            <p>Es posible configurar el índice de cambio general de cada portal rotando la ruedita incluida en cada widget o, si ya se tiene un porcentaje calculado presionando el botón <b>"ACT"</b>. Para los índices de cada URL podemos hacerlo haciendo doble click en la celda correspondiente.</p>
+
+            <img src="./imagenes/">
+
+            <h3>DIFF</h3>
+            <p>Es posible indagar más en los cambios encontrados por la aplicación a nivel de código HTML haciendo click en la celda DIFF correspondiente a una URL con cambios. Aquí encontraremos el algoritmo DIFF calculado entre la página actual y la última que se almacenó.</p>
+
+            <img src="./imagenes/">
+
+            <h3>Ordenar portales</h3>
+            <p>Podemos ordenar los portales por estatus (siendo el orden igual al de la descripción de los estados ya hecha anteriormente, hackeado, diferencias, estado anómalo, normal) o por orden alfabético.</p>
+
+            <img src="./imagenes/">
+
+            <h3>Filtrar Portales</h3>
+            </p>Es posible filtrar los portales por ministerio o entes seleccionado la opción correspondiente en el menú de opciones.</p>
+
+            <img src="./imagenes/">
+
+            <p>En ambas opciones nos encontraremos con una textbox donde podemos buscar el nombre del portal por "wildcard" es decir, de la misma forma que si buscaramos un archivo en linux o con expresiones regulares. Una vez se tengan los portales necesarios, hacemos click en ok y solo veremos aquellos portales que nos interesan sin tener que eliminar aquellos que de momento no nos importan.</p>
+
+            <h3>Monitoreo de portales</h3>
+
+            <p>En base a los portales seleccionados estos pueden ser monitoreados, es decir, que se ejecute una comparación automática sobre estos cada N cantidad de tiempo. Este tiempo es definido en la parte superior, tiene como mínimo y por defecto 5 minutos entre cada comparación. Es recomendable usar un número más elevado como 60 para darle un vistazo a cada URL cada hora.</p>
+
+            <img src="./imagenes/">
+
+            <h3>Reportes</h3>
+            <p>En el menú de estadísticas podemos obtener una lista de los cambios detectados por BotGIT y filtrar por ministerio, ente o portal y darle un rango de fechas. También podemos generar un PDF con estos cambios.</p>
+
+            <img src="./imagenes/">
+
+            <img src="./imagenes/">
+
             </div>            
         </div>       
     </div>

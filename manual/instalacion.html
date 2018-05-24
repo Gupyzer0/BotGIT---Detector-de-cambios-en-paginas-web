@@ -98,13 +98,20 @@
                 <p>Para su instalación descomprimir los ficheros y dentro de las carpetas encontrar el archivo <b>configure.py</b> y ejecutarlo con <b>python3</b> luego dentro del mismo directorio ejecutar <b>make</b> y luego <b>make install</b>. Notese que <b>SIP debe estar instalado antes de intentar la instalación de PyQt4...</b></p>
 
                 <h3>Poniendo la base de datos a punto</h3>
-                <p>Para tener la base de datos lista para el uso de botgit basta con crear una nueva base de datos con el nombre "botgit" y luego importar el esquema que viene incluido en el paquete "esquema.sql".</p>
+                <p>Para tener la base de datos lista para el uso de botgit basta con crear una nueva base de datos con el nombre "botgit" y luego importar el esquema que viene incluido en el paquete "esquema.sql".
+                </p>
 
                 <code class="laguage-bash" data-lang="bash" style="width:90%">
                     <ul style="list-style-type: none">
                         <li>mysql -u xxxx -p botgit < esquema.sql</li>                        
                     </ul>
                 </code>
+                <p>
+                <br>
+                <b>Ahora es necesario configurar 2 conexiones a bases de datos</b>, una principal y otra usada por un <b>"Worker"</b> que se ejecuta en un hilo de procesamiento diferente.
+                <br>
+                La conexión principal está definida en <b>bdatos/qt4BaseDatos.py</b> y la segunda en el archivo <b>bin/main.py</b> concretamente en la clase "WorkerAddPortal".
+                </p>                
 
                 <h3>Instalación en windows</h3>
                 <p>Usa Google y busca Qt4, SIP, PyQT4 y descarga los ejecutables, <strike>deja la flojera.</strike></p>

@@ -9,18 +9,18 @@ sys.path.append("../interfaz")
 sys.path.append("../bdatos")
 
 #Qt4
-from PyQt4 import Qt
-from PyQt4       import QtCore,QtGui, QtSql
-from PyQt4.QtCore import QThreadPool
+from PyQt4 			import Qt
+from PyQt4       	import QtCore,QtGui, QtSql
+from PyQt4.QtCore 	import QThreadPool
 
 #Obj
-from Crawler import Crawler,Araña
-from almacenador import Almacenador
-from caja        import Caja
+from Crawler 		import Crawler,Araña
+from almacenador 	import Almacenador
+from caja        	import Caja
 #Ui's
-from Ui_Main  import Ui_Main
-from Ui_Dialogo_Diff import Ui_Dialogo_Diff
-from Ui_Dialogo_Add_Pagina import Ui_Dialogo_Add_Pagina
+from Ui_Main  						import Ui_Main
+from Ui_Dialogo_Diff 				import Ui_Dialogo_Diff
+from Ui_Dialogo_Add_Pagina 			import Ui_Dialogo_Add_Pagina
 #Dialogos - SubClassing de QWidget
 from Dialogo_Add_Pagina 			import Dialogo_Add_Pagina
 from Dialogo_Add_Portal 			import Dialogo_Add_Portal
@@ -903,9 +903,11 @@ class VentanaMain(QtGui.QMainWindow):
 				#Evitar que las cajas sean eliminadas mientras se monitorean
 				caja.ui.btn_eliminar.setDisabled(True)
 				caja.ui.btn_reIndexar.setDisabled(True)
+				caja.ui.btn_modificar.setDisabled(True)
 				#-----botones layout derecha ----------
 				self.ui.btn_añadir_paginas.setDisabled(True)
 				self.ui.btn_eliminar_paginas.setDisabled(True)
+
 
 		worker = WorkerMonitorear(self.Monitorear,listaCajasMonitorear, tiempo)
 		worker.signals.finished.connect(self.boton_monitorear_enable)		
@@ -915,6 +917,8 @@ class VentanaMain(QtGui.QMainWindow):
 		for caja in listaCajasMonitorear:
 			worker.signals.finished.connect(functools.partial(caja.ui.btn_eliminar.setDisabled, False))	
 			worker.signals.finished.connect(functools.partial(caja.ui.btn_reIndexar.setDisabled, False))
+			worker.signals.finished.connect(functools.partial(caja.ui.btn_modificar.setDisabled, False))
+
 
 		self.threadpool.start(worker)
 		
