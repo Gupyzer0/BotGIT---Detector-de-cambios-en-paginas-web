@@ -40,7 +40,6 @@ class baseDatos():
 		if query.exec_():
 			return 1
 		else:
-			#return query.lastError()
 			return 0
 	#Retorna array con ministerios
 	@staticmethod
@@ -129,6 +128,18 @@ class baseDatos():
 
 	#----------------- PORTALES --------------------
 	@staticmethod
+	def seleccionar_portales_nombres():
+		listaNombrePortales = []
+		query.prepare("SELECT nombre FROM portales")
+		if query.exec_():
+			while query.next():
+				listaNombrePortales.append(str(query.value(0)))
+			return listaNombrePortales
+		else:
+			return 0
+
+
+	@staticmethod
 	def add_portal(nombreEnte,nombrePortal,db=db):#TRANSACCIONAR
 		query_2 = QtSql.QSqlQuery(db)
 		if query_2.exec('SET wait_timeout = 9000'):
@@ -168,37 +179,20 @@ class baseDatos():
 		portales = []
 		listaUrls = []
 		query.prepare("SELECT portales.nombre, urls.url, urls.archivo, urls.md5, urls.diff, urls.ultimo_porcentaje_cambio, urls.porcentaje_deteccion_cambio, urls.diff_aceptado, urls.estatus FROM portales INNER JOIN urls ON portales.idportales = urls.portales_idportales INNER JOIN entes on entes.identes = portales.entes_identes INNER JOIN ministerios ON ministerios.idministerio = entes.ministerios_idministerios")
-		#query.first()
 		if query.exec_():
-			#query.first()
 			query.first()
 			portal = str(query.value(0))
 			portalActual = portal
 			portales.append({portal:[]})
-			#portales.append({portal:[],'ministerio':ministerio})
-			#print(portales)
 			contPortal = 0
 			tam = query.size()
 
 			for fila in range(0,tam):
 				query.seek(fila)
-				#print("debug->",str(query.value(0)))
 				portalActual = str(query.value(0))
 
 				#{'url': url,'direccionArchivo': direccionArchivo,'md5': paginaMd5,'diff': diff, 'ultPorcCambio':ultPorcCambio, 'porcDetectCambio':0, 'diffAceptado':True, 'estatus':estatus}
-				"""
-				if portalActual == portal:
-					diff = str(query.value(4)).split('\n')
-					for linea in diff: linea = linea + '\\n'
-					portales[contPortal][portal].append({'url':str(query.value(1)),'direccionArchivo':str(query.value(2)),'md5':str(query.value(3)),'diff':diff,'ultPorcCambio':float(query.value(5)),'porcDetectCambio':float(query.value(6)),'diffAceptado':str(query.value(7)),'estatus':str(query.value(8))})
-					
-				else:
-					contPortal = contPortal + 1
-					portal = portalActual
-					portales.append({portal:[]})
-					diff = str(query.value(4)).split('\n')
-					for linea in diff: linea = linea + '\\n'
-				"""
+				
 				if portalActual == portal:
 					diff = query.value(4)
 					diff = diff.split('\\n')
@@ -280,10 +274,46 @@ class baseDatos():
 			#print(float(query.value(0)))
 			return float(query.value(0))
 		else:
-			print("Error encontrando el porcentaje de diferencia actual, deffault a 0")
-			return 0		
+			logging.error("Error encontrando el porcentaje de diferencia actual, deffault a 0")
+			return 0
+
+	@staticmethod
+	def cambiar_nombre_portal(nombreActual, nombreNuevo):
+		query.prepare("UPDATE portales SET nombre = ? WHERE nombre = ?")
+		query.addBindValue(nombreNuevo)
+		query.addBindValue(nombreActual)
+		if query.exec_():
+			logging.info("Se cambiado el nombre del portal")
+			return True
+		else:
+			return False
+
+	@staticmethod
+	def cambiar_ente_portal(nombrePortal, nombreEnte):
+		query.prepare("UPDATE portales SET entes_identes = (SELECT identes FROM entes WHERE nombre = ?) WHERE nombre = ?")
+		query.addBindValue(nombreEnte)
+		query.addBindValue(nombrePortal)
+		if query.exec_():
+			logging.info("Se ha cambiado el ente del portal")
+			return True
+		else:
+			return False
 
 	#-------PAGINAS -------------------------------------------------------
+	@staticmethod
+	def seleccionar_paginas_nombres():
+		listaUrls = []
+		query.prepare("SELECT url FROM urls")
+		if query.exec_():
+			while query.next():
+				listaUrls.append(str(query.value(0)))
+
+			return listaUrls
+			
+		else:
+			return 0
+
+
 
 	@staticmethod
 	def add_pagina(nombrePortal,url,direccionArchivo,md5,diff,ultPorcCambio,porcDetectCambio,diffAceptado,estatus,db=db):
@@ -501,18 +531,6 @@ class baseDatos():
 				return listaCambios
 			else:
 				return 0
-
-
-
-
-
-
-
-
-
-
-
-
 
 	@staticmethod
 	def seleccionar_urls_portales(id_portal):#Selecciona las url de in portal

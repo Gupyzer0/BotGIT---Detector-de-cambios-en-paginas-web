@@ -59,13 +59,16 @@
                 <br>
                 <b>interfaz</b> podemos ubicar las <b>vistas</b> de cada widget definido en el controlador, incluyendo a la interfaz principal.
                 <br>
-                <b>bdatos</b> se encuentra el archivo <b>qt4BaseDatos.py</b> donde está definida la conexión a la base de datos y las funciones para interactuar con esta, es decir, nuestro <b>modelo</b>. <b>Notese que existe una conexión extra en el archivo main.py que es usada por un hilo de procesamiento diferente al principal ya que EL USO DE UNA CONEXIÓN CREADA DESDE OTRO HILO DE PROCESAMIENTO NO ES SEGURO EN QT4</b>
+                <b>bdatos</b> se encuentra el archivo <b>qt4BaseDatos.py</b> donde está definida la conexión a la base de datos y las funciones para interactuar con esta, es decir, nuestro <b>modelo</b>. Notese que existe una conexión extra en el archivo main.py que es usada por un hilo de procesamiento diferente al principal ya que <b>EL USO DE UNA CONEXIÓN CREADA DESDE OTRO HILO DE PROCESAMIENTO DIFERENTE AL QUE EJECUTARÁ LAS SENTENCIAS SQL NO ES SEGURO EN QT4</b>
                 <br>
                 En bdatos también podemos encontrar el archivo <b>palabrasClave.txt</b> donde se encuentran las palabras claves a ser buscadas para detectar desfiguraciones.
                 </p>
 
                 <h3>Hilos de procesamiento</h3>
                 <p>Se hace uso de hilos de procesamiento a través de un pool de threads para agilizar el procesamiento de las actividades. Notese que cada thread está definido en el archivo "main.py" y que uno de estos, como se mencionó anteriormente, posee una conexión a base de datos propia, en concreto es la clase <b>WorkerAddPortal.</b></p>
+
+                <h3>Consola de actividad</h3>
+                <p>El nivel de los mensajes de la consola de actividades puede ser seteado en el método <b>main</b> encontrado en <b>main.py</b>. Por defecto está en nivel DEBUG pero pueden elegirse otros niveles como INFO, WARNING, ERROR y CRITICAL.</p>
                 
             </div>            
         </div>       

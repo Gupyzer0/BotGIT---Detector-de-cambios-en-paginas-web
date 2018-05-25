@@ -19,7 +19,7 @@ class Ui_Main(QtGui.QMainWindow):
 		super(Ui_Main, self).__init__()
 		MainWindow.setObjectName(_fromUtf8("MainWindow"))
 		MainWindow.setMaximumWidth(1440)
-		MainWindow.setMinimumWidth(1200)
+		MainWindow.setMinimumWidth(1366)
 		MainWindow.resize(1440, 600)
 
 		#widget central------------------------------------------------------------------------
@@ -100,18 +100,21 @@ class Ui_Main(QtGui.QMainWindow):
 		self.btn_ordenar_nombre.setMinimumHeight(28)
 		#self.btn_ordenar_nombre.setText(_translate("MainWindow", "Ordenar", None))
 		iconoOrdenar = QtGui.QIcon()
-		iconoOrdenar.addPixmap(QtGui.QPixmap(_fromUtf8("../interfaz/imagenes/A-Z.GIF")), QtGui.QIcon.Selected, QtGui.QIcon.On)
+		iconoOrdenar.addPixmap(QtGui.QPixmap(_fromUtf8("../interfaz/imagenes/ordenar_alfabeto.png")), QtGui.QIcon.Selected, QtGui.QIcon.On)
 		self.btn_ordenar_nombre.setIcon(iconoOrdenar)
 		self.grupo_botones.addWidget(self.btn_ordenar_nombre)
 
 		#Boton ordenar por estatus
+		iconoEstatus = QtGui.QIcon()
+		iconoEstatus.addPixmap(QtGui.QPixmap(_fromUtf8("../interfaz/imagenes/ordenar_estatus.png")), QtGui.QIcon.Selected, QtGui.QIcon.On)
 		self.btn_ordenar_estatus = QtGui.QPushButton()
+		self.btn_ordenar_estatus.setIcon(iconoEstatus)
 		self.btn_ordenar_estatus.setMinimumHeight(28)
 		#self.btn_ordenar_nombre.setText(_translate("MainWindow", "Ordenar", None))
 		#iconoOrdenar = QtGui.QIcon()
 		#iconoOrdenar.addPixmap(QtGui.QPixmap(_fromUtf8("../interfaz/imagenes/A-Z.GIF")), QtGui.QIcon.Selected, QtGui.QIcon.On)
 		#self.btn_ordenar_nombre.setIcon(iconoOrdenar)
-		self.btn_ordenar_estatus.setText(_translate("MainWindow", "Ord. Estatus", None))
+		#self.btn_ordenar_estatus.setText(_translate("MainWindow", "Ord. Estatus", None))
 		self.grupo_botones.addWidget(self.btn_ordenar_estatus)
 
 		self.btn_add_caja = QtGui.QPushButton()
@@ -143,14 +146,18 @@ class Ui_Main(QtGui.QMainWindow):
 		self.tableWidget.setColumnWidth(2,90)
 		self.tableWidget.setColumnWidth(3,90)
 		#self.tableWidget.setColumnWidth(4,60)
+		self.tableWidget.setStyleSheet("background-image: url(../interfaz/imagenes/logo_blanco_negro.png); background-attachment: fixed; background-repeat: no-repeat; background-position: center;")
 		self.layoutWidgetComparador.addWidget(self.tableWidget,1,1,1,1)
+
+		
+		
 
 		#layout botones superior derecha
 		self.grupo_botones_derecha = QtGui.QHBoxLayout()
 
 		#Label Caja Seleccioanda
 		self.label_caja_seleccioanda = QtGui.QLabel()
-		self.label_caja_seleccioanda.setText('Caja Seleccionada:')
+		self.label_caja_seleccioanda.setText('<b>Caja Seleccionada:</b>')
 		self.grupo_botones_derecha.addWidget(self.label_caja_seleccioanda)
 
 		#Boton añadir pagina

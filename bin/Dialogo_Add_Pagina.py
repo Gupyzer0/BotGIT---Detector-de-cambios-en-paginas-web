@@ -12,11 +12,11 @@ class Dialogo_Add_Pagina(QtGui.QWidget):
 	def __init__(self):
 		super(Dialogo_Add_Pagina, self).__init__()
 		self.lista = []
+		self.listaUrls = baseDatos.seleccionar_paginas_nombres()
 		self.valido = False
 
 		self.dialogo = QtGui.QDialog()
 		self.dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
-		#self.dialogo.setMinimumSize(400,400)
 		
 		self.ui = Ui_Dialogo_Add_Pagina(self.dialogo)
 		self.ui.textEdit.textChanged.connect(self.verificarLista)
@@ -25,6 +25,9 @@ class Dialogo_Add_Pagina(QtGui.QWidget):
 
 	def verificarUrl(self,url):
 		if regexPaginaWeb.match(url):						
+			if url in self.listaUrls:
+				logging.info("la url " + str(url) + " ya se encuentra en la base de datos")
+				return(False)
 			return(True)
 		else:
 			return(False)
@@ -44,7 +47,6 @@ class Dialogo_Add_Pagina(QtGui.QWidget):
 				break	
 
 		if self.valido:
-			#print(self.lista)
 			self.lista = lista
 			self.ui.textEdit.setStyleSheet("border: 1px solid black")
 		else:

@@ -17,28 +17,42 @@ class Dialogo_Editar_Portal(QtGui.QWidget):
 		self.msgBox.setStandardButtons(QtGui.QMessageBox.Ok)
 		self.msgBox.setModal(True)
 		self.valido = False
-		self.arrPortales = baseDatos.seleccionar_nombres_portales(nombreEnte)
-		for portal in self.arrPortales:
-			self.ui.comboBox.addItem(portal)
+
+		self.listaPortales = baseDatos.seleccionar_portales_nombres()
+		self.listaEntes = baseDatos.seleccionar_todos_entes()
+
+		for ente in self.listaEntes:
+			self.ui.comboBox.addItem(ente)
+		
+		#colocando valor por defecto del combobox
+		self.ui.comboBox.setCurrentIndex(self.ui.comboBox.findText(nombreEnte))
+
+		self.nombrePortalOriginal = nombrePortal
 		self.nombrePortal = nombrePortal
+		self.ente = nombreEnte
+		
 		self.ui.lineEdit.setText(self.nombrePortal)
+		
+		self.ui.lineEdit.textChanged.connect(self.cambiarNombreYEntePortal)
+		self.ui.comboBox.currentIndexChanged.connect(self.cambiarNombreYEntePortal)
+		self.ui.lineEdit.textChanged.connect(self.validarPortal)
+		self.ui.comboBox.currentIndexChanged.connect(self.validarPortal)
 
-		self.ui.lineEdit.textChanged.connect(self.cambiarNombrePortal)
-
-	def cambiarNombrePortal(self):
+	def cambiarNombreYEntePortal(self):
 		self.nombrePortal = self.ui.lineEdit.text()
+		self.ente = self.ui.comboBox.currentText()
 
+	def validarPortal(self):
+		if self.nombrePortal == '':
+			self.ui.lineEdit.setStyleSheet("border: 2px solid red")
+			self.valido = False
+			return
 
+		if self.nombrePortal != self.nombrePortalOriginal:
+			if self.nombrePortal in self.listaPortales:
+				self.ui.lineEdit.setStyleSheet("border: 2px solid red")
+				self.valido = False
+				return
 
-
-
-
-
-
-
-
-
-
-
-
-
+		self.ui.lineEdit.setStyleSheet("border: 1px solid black")
+		self.valido = True

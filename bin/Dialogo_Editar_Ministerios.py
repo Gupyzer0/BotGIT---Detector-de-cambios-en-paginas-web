@@ -71,7 +71,7 @@ class Dialogo_Editar_Ministerios(QtGui.QWidget):
 		numeroFilas = str(len(filas))
 		
 		self.msgBox.setWindowTitle('Eliminar Ministerios')
-		self.msgBox.setText('¿Está seguro que desea eliminar ' + numeroFilas + ' miniterios?')
+		self.msgBox.setText('¿Está seguro que desea eliminar ' + numeroFilas + ' ministerios?')
 		self.msgBox.setIcon(QtGui.QMessageBox.Warning)
 		self.msgBox.setStandardButtons(QtGui.QMessageBox.Cancel | QtGui.QMessageBox.Ok )
 		respuesta = self.msgBox.exec_()

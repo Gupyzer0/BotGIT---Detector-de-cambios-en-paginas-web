@@ -47,8 +47,8 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 Referencia Stack Overflow: https://stackoverflow.com/questions/31952711/threading-pyqt-crashes-with-unknown-request-in-queue-while-dequeuing
 
 Las funciones X11 para ventanas aparentemento no son seguras al usarse con threads a menos que se les 
-diga explicitamente que si lo sean. Por alguna razon PYQT tampoco coloca estas funciones explicitamente,
-asi que hay que agregar lo siguiente al constructor de la aplicacion: 
+active esta funcionalidad explicitamente. Por alguna razon ni QT ni PYQT activan esto de forma automática,
+asi que hay que agregar lo siguiente al constructor de la aplicacion para que así sea: 
 QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_X11InitThreads)
 
 """
@@ -238,7 +238,7 @@ class WorkerAddPaginas(QtCore.QRunnable):
 
 #Para redirigir elementos de salida estandar a la consola -----------------------------------------------------------
 #Ingresa elementos al texto de la consola
-#https://stackoverflow.com/questions/21071448/redirecting-stdout-and-stderr-to-a-pyqt4-qtextedit-from-a-secondary-thread
+#REF -> https://stackoverflow.com/questions/21071448/redirecting-stdout-and-stderr-to-a-pyqt4-qtextedit-from-a-secondary-thread
 class StreamEscritura(object):
 	def __init__(self,queue):
 		self.queue = queue
@@ -275,8 +275,7 @@ class VentanaMain(QtGui.QMainWindow):
 		self.ui = Ui_Main()
 		self.ui.setupUi(self)
 
-		#Palabras clave a detectar
-		#self.palabras = ['hacked','hackeado','anonymous','vene10', 'Vene 10','kaked','kacked']
+		#Lista con palabras clave a detectar
 		self.palabrasClave = []
 
 		try:
@@ -376,12 +375,9 @@ class VentanaMain(QtGui.QMainWindow):
 		self.ui.btn_añadir_paginas.clicked.connect(self.boton_add_pagina_clicked)
 		self.ui.btn_eliminar_paginas.clicked.connect(self.boton_eliminar_paginas_clicked)
 		
-		#bd = almacenarPaginas()
-		
 		bd = baseDatos.seleccionar_portales()
 		#if not bd: #Base de datos vacia, posible priemr uso o todos los portales están eliminados
 		for portal in bd:
-			#logging.debug(bd)
 			for k,v in portal.items():				
 				nombrePortal = str(k)
 				logging.debug("cargando el portal " + nombrePortal)
@@ -389,7 +385,6 @@ class VentanaMain(QtGui.QMainWindow):
 				lista = v
 				ministerio = baseDatos.seleccionar_ministerio_portal(nombrePortal)
 				#Creando una caja por cada elemento de la lista (por cada portal)
-				#caja = Caja(nombrePortal, lista, self)
 				caja = Caja(nombrePortal,ente, lista, ministerio, self.ui.scrollAreaWidgetContents)
 				#cargando porcentaje de deteccion de diferencias
 				porcentaje = baseDatos.seleccionar_porcentaje_diferencia_portal(nombrePortal)
@@ -398,22 +393,18 @@ class VentanaMain(QtGui.QMainWindow):
 				#incializando color del texto de la caja
 				for elem in caja.lista:					
 					#Si el elemento diff contiene informacion al momento de la creacion ... Entonces es un error de conexion
-					#print("diff:", str(elem['diff']))
-				
+									
 					if elem['diff'][0]:
 						if elem['ultPorcCambio'] > float(elem['porcDetectCambio']):
 							caja.ui.setStyleSheet('QGroupBox{color: red;\nfont: bold;}')
 							caja.estatus = "mal"
 						
-							#regex = re.compile('\d\d\d\Z')
 							if regexHttp.match(str(elem['diff'][0])):
 								caja.ui.setStyleSheet('QGroupBox{color: #FF8C00;\nfont: bold;}')
 							
-							#regex = re.compile('Error de Conexion')
 							elif regexErrCon.match(str(elem['diff'][0])):
 								caja.ui.setStyleSheet('QGroupBox{color: #FF8C00;\nfont: bold;}')
 							
-							#regex = re.compile('Timeout')
 							elif regexTimeout.match(str(elem['diff'][0])):
 								caja.ui.setStyleSheet('QGroupBox{color: #FF8C00;\nfont: bold;}')
 						if elem['estatus']=='hacked':
@@ -464,7 +455,6 @@ class VentanaMain(QtGui.QMainWindow):
 		self.boton_caja_mostrar_clicked(caja)
 
 	def agregarCajas(self):#Para añadir en duplas de *portal - url| lista = {'nombrePortal':['semilla','dir2','dir_n']}*
-		#TODO: iniciar interfaz para añadir cajas
 		addCajaDialogo = Dialogo_Add_Portal()
 
 		respuestaDialogo = addCajaDialogo.dialogo.exec_()
@@ -494,9 +484,9 @@ class VentanaMain(QtGui.QMainWindow):
 			pass
 
 		else:
-			logging.warnign("Error, Una de las opciones era incorrecta, No se agregará el portal")			
+			logging.warning("Error, Una de las opciones era incorrecta, No se agregará el portal")			
 			self.msgBox.setWindowTitle('Error')
-			self.msgBox.setText('Error: Una de las opciones era incorrecta, No se agregará el portal.')
+			self.msgBox.setText('Error: Debe ingresar un nombre y URLs válidas para poder agregar el portal. Verifique que ninguna de las opciones esté vacía o que el portal ya exista.')
 			self.msgBox.setIcon(QtGui.QMessageBox.Critical)
 			self.msgBox.setStandardButtons(QtGui.QMessageBox.Ok)
 			self.msgBox.exec()
@@ -509,7 +499,6 @@ class VentanaMain(QtGui.QMainWindow):
 		self.msgBox.setModal(True)
 		self.msgBox.setIcon(QtGui.QMessageBox.Warning)
 		self.msgBox.setStandardButtons(QtGui.QMessageBox.Cancel | QtGui.QMessageBox.Ok)
-		#self.msgBox.setStandardButtons()		
 		respuesta = self.msgBox.exec_()
 
 		if respuesta == QtGui.QMessageBox.Ok:
@@ -651,7 +640,6 @@ class VentanaMain(QtGui.QMainWindow):
 				logging.debug("Comparacion terminada")
 			
 	def actualizarInterfazCaja(self,caja):
-		#print("act int caja")
 		cambio = False
 
 		for i in range(len(caja.lista)):
@@ -678,8 +666,6 @@ class VentanaMain(QtGui.QMainWindow):
 		else:
 			caja.ui.texto_porcentaje_cambio_promedio.setStyleSheet('QLabel {color : white; }')
 
-		
-	
 		#estatus caja
 		if not cambio:
 			caja.estatus = "ok"
@@ -690,9 +676,7 @@ class VentanaMain(QtGui.QMainWindow):
 	def Monitorear(self, listaCajas, tiempo):
 		timer = QtCore.QElapsedTimer()
 		timer.start()
-		#self.consola.mostrar("Iniciando monitoreo de "+ str(len(listaCajas)) + " portales.")
-		#logging.info("Iniciando Monitoreo de " + str(len(listaCajas)) + " portales")
-		#print("Iniciando Monitoreo")
+		logging.info("Iniciando Monitoreo de " + str(len(listaCajas)) + " portales")
 		tiempoRestante = tiempo
 
 		for caja in listaCajas:
@@ -712,12 +696,10 @@ class VentanaMain(QtGui.QMainWindow):
 		while self.banderaMonitoreo:
 			tiempoRestante = tiempo - timer.elapsed()
 			time.sleep(1)#evita que el CPU llegue al 100%
-			#print(self.banderaMonitoreo)
 			if tiempoRestante <= 0:
-				#print(tiempoRestante)
 				
 				for caja in listaCajas:
-					#print("Iteracion lista cajas")
+
 					caja.ui.btn_compararYa.setDisabled(1)
 
 					worker = WorkerComparador(self.Comparar,caja)
@@ -730,10 +712,6 @@ class VentanaMain(QtGui.QMainWindow):
 					self.threadpool.start(worker)
 
 					timer.restart()
-				
-		#self.consola.mostrar("Fin del Monitoreo")
-		#logging.info("Final del monitoreo")
-		#self.signals.finished.emit()
 
 	def Crawl(self, listaSemillas):
 		crawler = Crawler(listaSemillas)
@@ -749,8 +727,6 @@ class VentanaMain(QtGui.QMainWindow):
 
 			worker = WorkerCrawler(crawler.opcionesCrawler, self.listaCajasChequeadas, baseDatos.add_pagina, baseDatos.eliminar_urls_portal)
 			
-			#worker.signals.progreso.connect(functools.partial(self.boton_caja_comparar_clicked, caja))
-			#worker.signals.progreso.connect(functools.partial(self.barraProgreso,))
 			worker.signals.progreso.connect(self.barraProgreso.ui.progressBar.setValue)
 			worker.signals.finished.connect(self.resetear_lista_cajas_chequeadas)
 			worker.signals.finished.connect(self.barraProgreso.dialogo.hide)
@@ -765,11 +741,9 @@ class VentanaMain(QtGui.QMainWindow):
 	#------Botones Caja --------------------------------------
 
 	def boton_caja_mostrar_clicked(self, caja):
-		#print(caja.lista)
-		print("boton caja")
 		self.cajaActual = caja
 
-		self.ui.label_caja_seleccioanda.setText('Caja Seleccionada: ' + self.cajaActual.portal)
+		self.ui.label_caja_seleccioanda.setText('Caja Seleccionada: <b>' + self.cajaActual.portal + '</b>')
 
 		#logging.debug('caja actual:' + caja.portal)
 		#Desconectando slots para evitar una llamada doble a la misma funcion
@@ -798,9 +772,7 @@ class VentanaMain(QtGui.QMainWindow):
 			#Verificar si el diff debe ser mostrado o si es un codigo de error
 			#Darle color ... dependiendo de si diff esta o no esta vacio. Ademas de anadir la propiedad para
 			#que muestre el diff unificado de existir.
-			
-			#TODO llamar funcion actualizar interfaz caja
-		
+					
 		for i in range(len(caja.lista)):
 			
 			if str(caja.lista[i]['estatus'])[0:2] != "ok":
@@ -927,12 +899,10 @@ class VentanaMain(QtGui.QMainWindow):
 	def boton_monitorear_detener_clicked(self):
 		self.banderaMonitoreo = False
 		self.boton_monitorear_enable()
-		#self.consola.mostrar("Deteniendo el monitoreo ...")
 		logging.info("Deteniendo el monitoreo...")
 
 	def boton_monitorear_enable(self):
 		self.ui.btn_monitoreo_seleccion.setDisabled(0)
-		#for caja in self.listaCajas : caja.ui.btn_compararYa.setDisabled(0)
 
 	def boton_crawl_clicked(self):		
 		for caja in self.listaCajas:
@@ -950,7 +920,7 @@ class VentanaMain(QtGui.QMainWindow):
 		#Clase Dialogo de error. Solo modificarlo cada vez que se le llame
 		if not self.cajaActual:
 			self.msgBox.setWindowTitle('Error')
-			self.msgBox.setText('Error: Seleccione un portal para agregar una pagina a este. ')
+			self.msgBox.setText('Error: Seleccione un portal para agregar una pagina a este.')
 			self.msgBox.setStandardButtons(QtGui.QMessageBox.Ok)
 			self.msgBox.exec()
 			return	
@@ -968,7 +938,6 @@ class VentanaMain(QtGui.QMainWindow):
 				worker = WorkerAddPaginas(self.cajaActual, arreglo_direcciones, Almacenador.guardarPagina, baseDatos.add_pagina)
 				worker.signals.finished.connect(self.barraProgreso.dialogo.hide)
 				worker.signals.finished.connect(functools.partial(self.boton_caja_mostrar_clicked, self.cajaActual))
-				#worker.run()
 				self.threadpool.start(worker)
 
 			elif respuestaDialogo:
@@ -981,12 +950,19 @@ class VentanaMain(QtGui.QMainWindow):
 				return
 
 	def boton_eliminar_paginas_clicked(self):
-		#TODO: Eliminacion en base de datos
-		#pagSeleccionadas = self.ui.tableWidget.selectionModel().selectedRows()
 
 		if not self.ui.tableWidget.selectedIndexes():
 			self.msgBox.setWindowTitle('No hay páginas seleccionadas para eliminar')
 			self.msgBox.setText('No hay páginas seleccionadas para eliminar')
+			self.msgBox.setModal(True)
+			self.msgBox.setIcon(QtGui.QMessageBox.Warning)
+			self.msgBox.setStandardButtons(QtGui.QMessageBox.Ok)
+			self.msgBox.exec_()
+			return
+
+		if len(self.cajaActual.lista) == 1:
+			self.msgBox.setWindowTitle('No puede eliminar la última URL de este portal')
+			self.msgBox.setText('Inserte otra URL para poder eliminar esta o en su defecto elimine el portal por completo.')
 			self.msgBox.setModal(True)
 			self.msgBox.setIcon(QtGui.QMessageBox.Warning)
 			self.msgBox.setStandardButtons(QtGui.QMessageBox.Ok)
@@ -998,7 +974,6 @@ class VentanaMain(QtGui.QMainWindow):
 		self.msgBox.setModal(True)
 		self.msgBox.setIcon(QtGui.QMessageBox.Warning)
 		self.msgBox.setStandardButtons(QtGui.QMessageBox.Cancel | QtGui.QMessageBox.Ok)
-		#self.msgBox.setStandardButtons()		
 		respuesta = self.msgBox.exec_()
 		
 		if respuesta == QtGui.QMessageBox.Ok:
@@ -1019,14 +994,12 @@ class VentanaMain(QtGui.QMainWindow):
 			for indice in indices: 
 				self.ui.tableWidget.removeRow(indice)
 
-			#logging.debug(self.cajaActual.lista)
 			self.boton_caja_mostrar_clicked(self.cajaActual)
 		
 
 	def tabla_click(self, fila, columna, caja):
 		if columna == 0:
 			pyperclip.copy(caja.lista[fila]['url'])
-			#print(caja.lista[fila])
 		if columna == 1:
 			pyperclip.copy(caja.lista[fila]['direccionArchivo'])
 
@@ -1111,7 +1084,6 @@ class VentanaMain(QtGui.QMainWindow):
 
 	def setPorcDif(self, fila, columna, caja):
 		
-		#print(self.ui.tableWidget.item(fila,columna).text())
 		if columna == 2:
 			try:
 				float(self.ui.tableWidget.item(fila,columna).text())
@@ -1128,9 +1100,9 @@ class VentanaMain(QtGui.QMainWindow):
 				baseDatos.cambiar_porcentaje_deteccion_cambio_pagina(caja.lista[fila]['url'],self.ui.tableWidget.item(fila,columna).text())
 				caja.lista[fila]['porcDetectCambio'] = self.ui.tableWidget.item(fila,columna).text()
 			
-	#-------------Acciones Menu --------------------
+	#-------------Acciones Menu -------------------------------------------------------------------------------
 	
-	#>Opciones
+	#Opciones
 	def setTimeout(self):
 		texto, ok = QtGui.QInputDialog.getText(self, 'Tiempo de timeout', 'Ingrese el nuevo tiempo de timeout, igual o mayor a 5 segundos.')
 
@@ -1160,7 +1132,6 @@ class VentanaMain(QtGui.QMainWindow):
 	#Ministerios
 	def filtrarPortalesPorMinisterios(self):
 		dialogoFiltrarCajas = Dialogo_Filtrar_Ministerios()
-		#dialogoFiltrarCajas.dialogo.exec_()		
 		listaMinisterios = []
 		respuestaDialogo = dialogoFiltrarCajas.dialogo.exec()
 		if respuestaDialogo:
@@ -1174,21 +1145,17 @@ class VentanaMain(QtGui.QMainWindow):
 			if caja.ministerio in listaMinisterios:
 				listaCajasFiltrada.append(caja)
 
-		#print("**********Lista filtrados************")
-		#print(listaCajasFiltrada)
 		#Reseteando interfaz de cajas de portales
 
 		for caja in self.listaCajas:
-			#index = self.listaCajas.index(caja)
 			caja.ui.setParent(None)
-			#del self.listaCajas[index]
-
+			
 		self.listaCajas = listaCajasFiltrada
 
 		for caja in self.listaCajas:
 			for elem in caja.lista:					
 				#Si el elemento diff contiene informacion al momento de la creacion ... Entonces es un error de conexion
-				#print("diff:", str(elem['diff']))			
+		
 				if elem['diff'][0]:
 					if elem['ultPorcCambio'] > float(elem['porcDetectCambio']):
 						caja.ui.setStyleSheet('QGroupBox{color: red;\nfont: bold;}')
@@ -1210,12 +1177,24 @@ class VentanaMain(QtGui.QMainWindow):
 		editarPortalDialogo = Dialogo_Editar_Portal(caja.portal, caja.ente)
 		respuestaDialogo = editarPortalDialogo.dialogo.exec()
 		if respuestaDialogo:
-			if editarPortalDialogo.nombrePortal != '':
-				print("Si va")
+			if editarPortalDialogo.valido:
+				baseDatos.cambiar_nombre_portal(caja.portal, editarPortalDialogo.nombrePortal)
+				baseDatos.cambiar_ente_portal(editarPortalDialogo.nombrePortal, editarPortalDialogo.ente)
+				#cambiando en la interfaz y el objeto caja
+				caja.ente = editarPortalDialogo.ente
+				caja.portal = editarPortalDialogo.nombrePortal
+				caja.ui.groupBox.setTitle(editarPortalDialogo.nombrePortal)
+
+				#recargando interfaz de la caja
+				self.boton_caja_mostrar_clicked(caja)
+
 			else:
-				print("No puede tener nombre vacio")
-
-
+				logging.warning("Error, Nombre de portal inválido")
+				self.msgBox.setWindowTitle('Error, Nombre de portal inválido')
+				self.msgBox.setText('El nombre no puede estar vacío o ya se encuentra en uso.')
+				self.msgBox.setIcon(QtGui.QMessageBox.Critical)
+				self.msgBox.setStandardButtons(QtGui.QMessageBox.Ok)
+				self.msgBox.exec()
 
 	def editarMinisterios(self):
 		dialogoEditarMinisterios = Dialogo_Editar_Ministerios()
@@ -1248,8 +1227,6 @@ class VentanaMain(QtGui.QMainWindow):
 			if caja.ente in listaEntes:
 				listaCajasFiltrada.append(caja)
 
-		#print("**********Lista filtrados************")
-		#print(listaCajasFiltrada)
 		#Reseteando interfaz de cajas de portales
 
 		for caja in self.listaCajas:
@@ -1260,7 +1237,7 @@ class VentanaMain(QtGui.QMainWindow):
 		for caja in self.listaCajas:
 			for elem in caja.lista:					
 				#Si el elemento diff contiene informacion al momento de la creacion ... Entonces es un error de conexion
-				#print("diff:", str(elem['diff']))			
+	
 				if elem['diff'][0]:
 					if elem['ultPorcCambio'] > float(elem['porcDetectCambio']):
 						caja.ui.setStyleSheet('QGroupBox{color: red;\nfont: bold;}')
@@ -1290,11 +1267,6 @@ class VentanaMain(QtGui.QMainWindow):
 		dialogoMostrarEstadisticasCambios = Dialogo_Estadisticas_Cambios()
 		dialogoMostrarEstadisticasCambios.dialogo.exec()
 
-
-
-	#def agregarEnte(self):
-		#stub
-
 	#------------handlers -------------------------
 	"""
 	Este handler fue defeinido para poder llamar a la funcion baseDatos.cambiar_estatus_paginas desde el thread
@@ -1311,8 +1283,6 @@ class VentanaMain(QtGui.QMainWindow):
 				else:
 					baseDatos.ingresar_cambio(lista[i]['ultPorcCambio'],lista[i]['estatus'],lista[i]['url'])
 			elif lista[i]['ultPorcCambio'] > float(lista[i]['porcDetectCambio']):
-				#if not lista[i]['diffAceptado']:
-				#print("*******entra cambio con",lista[i]['url'])
 				baseDatos.ingresar_cambio(lista[i]['ultPorcCambio'],lista[i]['estatus'],lista[i]['url'])
 
 	def mostrarAyuda(self):
@@ -1409,9 +1379,7 @@ def obtenerLista():
 """
 
 def my_excepthook(type, value, tback):
-    # log the exception here
-
-    # then call the default handler
+    # loguea la excepcion aqui para luego enviarla al handler por defecto
     sys.__excepthook__(type, value, tback)
 
 #----------------------Iniciando-----------------------------------
@@ -1421,14 +1389,12 @@ def main():
 	app = QtGui.QApplication(sys.argv)
 	app.setStyle("cleanlooks") #o plastique?
 	
-	#----aplicando hoja de estilo
+	#----aplicando hoja de estilo-------
 	archivoEstilo = '../interfaz/estilo.qss'
-	#archivoEstilo = '../interfaz/estilo1.qss'
+	
 	with open(archivoEstilo,'r') as archivo:
 		app.setStyleSheet(archivo.read())
 	
-
-
 	logging.basicConfig(stream=sys.stdout, level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 	logging.info("Iniciando BotGIT ...")
 
@@ -1448,6 +1414,6 @@ def main():
 	"""
 	
 	sys.exit(app.exec_())
+
 if __name__ == '__main__':
 	main();
-

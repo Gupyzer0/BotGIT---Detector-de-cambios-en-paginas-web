@@ -12,10 +12,11 @@ class Dialogo_Add_Portal(QtGui.QWidget):
 	def __init__(self):
 		super(Dialogo_Add_Portal, self).__init__()
 		self.portal = ''
-		self.ente = '' #Para usar luego
+		self.ente = ''
 		self.ministerio = ''
 		self.lista = []
 		self.valido = False
+		self.listaPortales = baseDatos.seleccionar_portales_nombres()
 
 		self.dialogo = QtGui.QDialog()
 		self.dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
@@ -31,29 +32,23 @@ class Dialogo_Add_Portal(QtGui.QWidget):
 
 		#inicializando combobox de ministerios
 		
-		#arrMins = ['Ministerio de Prueba']
 		arrMins = baseDatos.seleccionar_ministerios()
 		for ministerio in arrMins:
 			self.ui.comboBox_ministerio.addItem(ministerio)
 
-		#del arrMins
 		self.dialogo.setModal(True)
 		self.dialogo.show()
-		#self.valido = self.urlValida & self.listaValida
 
 	def cambiarEnte(self):
 		self.ente = self.ui.comboBox_entes.currentText()
-		print("TIPO",type(self.ente))
 
 	def cambiarMinisterio(self):
 		self.ministerio = self.ui.comboBox_ministerio.currentText()
 
 	def validar(self):
-		#print(self.verificarNombrePortal() & self.verificarLista())
 		nombre_lista = self.verificarNombrePortal() & self.verificarLista()
+
 		if self.ui.comboBox_entes.currentText()!= '':
-			#print(self.ui.comboBox_entes.currentText())
-			#print(nombre_lista)
 			enteValido = True
 			self.valido =  nombre_lista & enteValido
 
@@ -78,7 +73,6 @@ class Dialogo_Add_Portal(QtGui.QWidget):
 				break	
 
 		if resultado:
-			print(self.lista)
 			self.lista = lista
 			self.ui.plainTextEdit.setStyleSheet("border: 1px solid black")
 		else:
@@ -90,6 +84,9 @@ class Dialogo_Add_Portal(QtGui.QWidget):
 			self.ui.lineEdit.setStyleSheet("border: 2px solid red")
 			return False
 		elif not regexTextoNumeros.match(str(self.ui.lineEdit.text())):
+			self.ui.lineEdit.setStyleSheet("border: 2px solid red")
+			return False
+		elif str(self.ui.lineEdit.text()) in self.listaPortales:
 			self.ui.lineEdit.setStyleSheet("border: 2px solid red")
 			return False
 		else:

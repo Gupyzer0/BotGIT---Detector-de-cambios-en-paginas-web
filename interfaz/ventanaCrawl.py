@@ -45,13 +45,13 @@ class InterfazCrawler(object):
         self.tablaPaginas.horizontalHeader().setCascadingSectionResizes(False)
         self.tablaPaginas.horizontalHeader().setMinimumSectionSize(27)
         self.tablaPaginas.horizontalHeader().setSortIndicatorShown(False)
-        self.tablaPaginas.horizontalHeader().setStretchLastSection(False)
+        self.tablaPaginas.horizontalHeader().setStretchLastSection(True)
         self.tablaPaginas.verticalHeader().setCascadingSectionResizes(False)
         self.tablaPaginas.verticalHeader().setSortIndicatorShown(False)
         self.tablaPaginas.verticalHeader().setStretchLastSection(False)
-        self.tablaPaginas.setColumnWidth(0,200)
-        self.tablaPaginas.setColumnWidth(1,480)
-        self.tablaPaginas.setColumnWidth(2,90)
+        self.tablaPaginas.setColumnWidth(0,250)
+        self.tablaPaginas.setColumnWidth(1,570)
+        
 
         #item = QtGui.QTreeWidgetItem(self.arbol_paginas)
         #item.setText(0,'Pais')

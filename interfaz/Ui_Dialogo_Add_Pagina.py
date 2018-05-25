@@ -28,14 +28,20 @@ class Ui_Dialogo_Add_Pagina(object):
         Dialog.resize(1000, 400)
         self.gridLayout = QtGui.QGridLayout(Dialog)
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
+        
+        self.label = QtGui.QLabel(Dialog)
+        self.label.setObjectName(_fromUtf8("label"))
+        self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
+
+        self.textEdit = QtGui.QTextEdit(Dialog)
+        self.textEdit.setObjectName(_fromUtf8("textEdit"))
+        self.gridLayout.addWidget(self.textEdit, 1, 0, 1, 1)
+
         self.buttonBox = QtGui.QDialogButtonBox(Dialog)
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
         self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Ok)
         self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
-        self.gridLayout.addWidget(self.buttonBox, 1, 0, 1, 1)
-        self.textEdit = QtGui.QTextEdit(Dialog)
-        self.textEdit.setObjectName(_fromUtf8("textEdit"))
-        self.gridLayout.addWidget(self.textEdit, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.buttonBox, 2, 0, 1, 1)
 
         self.retranslateUi(Dialog)
         #Senales viejas
@@ -45,3 +51,4 @@ class Ui_Dialogo_Add_Pagina(object):
 
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(_translate(_fromUtf8("Agregar URLs"), _fromUtf8("Agregar URLs"), None))
+        self.label.setText(_translate("Dialog", "URL\'s a agregar separadas por comas, Ej: http://www.pagina.gob.ve,http://www.pagina.gob.ve/noticias", None))
