@@ -237,27 +237,10 @@ class WorkerAddPaginas(QtCore.QRunnable):
 		finally:
 			self.signals.finished.emit()
 
-class WorkerRobotTelegram(QtCore.QRunnable):
-	def __init__(self, mensaje):
-		self.robot = TelegramBot()
-		self.mensaje = mensaje
-		self.signals = WorkerSignals()
-
-	def run(self):
-		try:
-			self.robot.enviarMensaje(self.mensaje)
-		except:
-			traceback.print_exc()
-			exctype, value = sys.exc_info()[:2]
-			self.signals.error.emit((exctype, value, traceback.format_exc()))
-		finally:
-			self.signals.finished.emit()
-
-
 #Para redirigir elementos de salida estandar a la consola -----------------------------------------------------------
 #Ingresa elementos al texto de la consola
 #REF -> https://stackoverflow.com/questions/21071448/redirecting-stdout-and-stderr-to-a-pyqt4-qtextedit-from-a-secondary-thread
-class StreamEscritura(object):
+class StreamEscritura():
 	def __init__(self,queue):
 		self.queue = queue
 
@@ -831,7 +814,7 @@ class VentanaMain(QtGui.QMainWindow):
 		self.actualizarInterfazCaja(caja)
 		
 	def boton_caja_comparar_clicked(self, caja):
-		
+		print("Comparando portal", caja.portal)
 		#inhabilitando el boton de comparar del widget caja
 		caja.ui.btn_compararYa.setDisabled(1)
 		#Creamos el worker
@@ -870,6 +853,7 @@ class VentanaMain(QtGui.QMainWindow):
 		self.seleccionarCajasTodas()
 
 	def boton_comparar_clicked(self):
+		print("Comparando portales")
 		for caja in self.listaCajas:
 			if caja.ui.groupBox.isChecked():
 				self.listaCajasChequeadas.append(caja)
@@ -891,6 +875,7 @@ class VentanaMain(QtGui.QMainWindow):
 		self.listaCajasChequeadas = []
 
 	def boton_monitorear_clicked(self):
+		print("Iniciando monitoreo")
 		self.ui.btn_monitoreo_seleccion.setDisabled(0)
 		self.banderaMonitoreo = True
 		
@@ -949,6 +934,7 @@ class VentanaMain(QtGui.QMainWindow):
 		#Matar dialogos al final ?
 		#Clase Dialogo de error. Solo modificarlo cada vez que se le llame
 		if not self.cajaActual:
+			print("Error: no posee un portal seleccionado.")
 			self.msgBox.setWindowTitle('Error')
 			self.msgBox.setText('Error: Seleccione un portal para agregar una pagina a este.')
 			self.msgBox.setStandardButtons(QtGui.QMessageBox.Ok)
@@ -963,6 +949,7 @@ class VentanaMain(QtGui.QMainWindow):
 				arreglo_direcciones = addPaginaDialogo.lista
 				self.barraProgreso.ui.progressBar.setRange(0,0)
 				self.barraProgreso.ui.label.setText("Agregando página, por favor espere...")
+				print("Agregando página, por favor espere...")
 				self.barraProgreso.dialogo.show()
 
 				worker = WorkerAddPaginas(self.cajaActual, arreglo_direcciones, Almacenador.guardarPagina, baseDatos.add_pagina)
@@ -971,6 +958,7 @@ class VentanaMain(QtGui.QMainWindow):
 				self.threadpool.start(worker)
 
 			elif respuestaDialogo:
+				print("Error: URLs a agregar inválidas")
 				self.msgBox.setWindowTitle('URLs invalidas')
 				self.msgBox.setText('Error, verifique que las URLs a agregar sean correctas.')
 				self.msgBox.setModal(True)
@@ -1007,6 +995,7 @@ class VentanaMain(QtGui.QMainWindow):
 		respuesta = self.msgBox.exec_()
 		
 		if respuesta == QtGui.QMessageBox.Ok:
+			print("Eliminando páginas ...")
 
 			indices = []
 
@@ -1134,6 +1123,8 @@ class VentanaMain(QtGui.QMainWindow):
 	
 	#Opciones
 	def setTimeout(self):
+		print("Configurando timeout")
+
 		texto, ok = QtGui.QInputDialog.getText(self, 'Tiempo de timeout', 'Ingrese el nuevo tiempo de timeout, igual o mayor a 5 segundos.')
 
 		if ok & len(texto):
@@ -1161,6 +1152,8 @@ class VentanaMain(QtGui.QMainWindow):
 
 	#Ministerios
 	def filtrarPortalesPorMinisterios(self):
+		print("Filtrando portales por ministerio")
+
 		dialogoFiltrarCajas = Dialogo_Filtrar_Ministerios()
 		listaMinisterios = []
 		respuestaDialogo = dialogoFiltrarCajas.dialogo.exec()
@@ -1204,6 +1197,8 @@ class VentanaMain(QtGui.QMainWindow):
 
 	
 	def editarPortal(self, caja):
+		print("Editando portal", caja.portal)
+
 		editarPortalDialogo = Dialogo_Editar_Portal(caja.portal, caja.ente)
 		respuestaDialogo = editarPortalDialogo.dialogo.exec()
 		if respuestaDialogo:
@@ -1322,92 +1317,6 @@ class VentanaMain(QtGui.QMainWindow):
 		logging.debug("Función de pruebas")
 		print("Funcion de prueba !")
 
-#-------------Funciones para la prueba del comaparador sin base de datos ni aranha web ----------
-"""
-def almacenarPaginas():
-	lista = obtenerLista()
-	baseDatos = Almacenador.guardarPaginas(lista)
-	#pprint(baseDatos)
-
-	return baseDatos
-
-def obtenerLista():
-	#lista = {}
-
-	lista = {'VenCERT':['http://www.vencert.gob.ve'],
-		 'SUSCERTE':['http//www.suscerte.gob.ve'],
-		 'ABAE':['http://www.abae.gob.ve'],
-		'CNTI':['http://www.cnti.gob.ve'],
-		'BANDES':['http://www.bandes.gob.ve'],
-		'BOLIPUERTOS':['http://www.bolipuertos.gob.ve'],
-		'METRO Ccs':['http://metrodecaracas.com.ve'],
-		'CIDA':['http://www.cida.gob.ve'],
-		'CNTQ':['http://www.cntq.gob.ve'],
-		'CENCOEX':['http//www.cencoex.gob.ve'],
-		'CIEPE':['http://www.ciepe.gob.ve'],
-		'CGR':['http://www.cgr.gob.ve'],
-		'CMC':['http://www.cmc.gob.ve'],
-		'CORPOSALUD Aragua':['http://www.corposaludaragua.gob.ve'],
-		'OPSU':['http://www.opsu.gob.ve'],
-		'FIDETEL':['http://www.fidetel.gob.ve'],
-		'CFG':['http://www.cfg.gob.ve'],
-		'FONACIT':['http://www.fonacit.gob.ve'],
-		'CENDITEL':['http://www.cenditel.gob.ve'],
-		'Fundación Editorial El Perro y la Rana':['http://www.elperroylarana.gob.ve'],
-		'FUNDAYACUCHO':['http://www.fundayacucho.gob.ve'],
-		'FII':['http://www.fii.gob.ve'],
-		'FUNDAPROAL':['http://www.fundaproal.gob.ve'],
-		'FUNVISIS':['http://www.funvisis.gob.ve'],
-		'ALBATEL':['http://www.telecomunicianesalba.com'],
-		'INVEPAL':['http://www.invepal.com.ve'],
-		'BNV':['http://www.bnv.gob.ve'],
-		'INAC':['http://www.inac.gob.ve'],
-		'IFE':['http://www.ife.gob.ve'],
-		'INHRR':['http://www.inhrr.gob.ve'],
-		'INAMEH':['http://www.inameh.gob.ve'],
-		'IPOSTEL':['http://www.ipostel.gob.ve'],
-		'INPSASEL':['http://www.inpsasel.gob.ve'],
-		'INTT':['http://www.intt.gob.ve'],
-		'IVIC':['http://www.ivic.go.ve'],
-		'CENDIT':['http://www.cendit.gob.ve'],
-		'INFOCENTRO':['http://www.infocentro.gob.ve'],
-		'MERCAL':['http://www.mercal.gob.ve'],
-		'MINCI':['http://minci.gob.ve'],
-		'MPPEE':['http://www.mppee.gob.ve'],
-		'M.P.P.Comunas':['http://www.mpcomunas.gob.ve'],
-		'MPPEUCT':['http://www.mppeuct.gob.ve'],
-		'MPPRIJ':['http://www.mpprij.gob.ve'],
-		'MPPRE':['http://mppre.gob.ve'],
-		'MINPI':['http://www.minpi.gob.ve'],
-		'MINPPTRASS':['http://www.minpptrass.gob.ve'],
-		'ONCTI':['http://www.oncti.gob.ve'],
-		'ONCOP':['http://www.oncop.gob.ve'],
-		'QUIMBIOTEC':['http://www.quimbiotec.gob.ve'],
-		'Red TV':['http://www.redtv.gob.ve'],
-		'IAESP':['http://www.iaesp.edu.ve'],
-		'SAIME':['http://www.saime.gob.ve'],
-		'SUDEBAN':['http://sudeban.gob.ve'],
-		'SNC':['http://www.snc.gob.ve'],
-		'SUNAGRO':['http://www.sunagro.gob.ve'],
-		'SUNAI':['http://www.sunai.gob.ve'],
-		'TELECOM':['http://www.telecom.gob.ve'],
-		'UNES':['http://www.unes.edu.ve'],
-		'UNESR':['http://www.unesr.edu.ve'],
-		'UNELLEZ':['http://www.unellez.edu.ve'],
-		'UNEFA':['http://www.unefa.edu.ve'],
-		'LUZ':['http://www.luz.edu.ve'],
-		'Laboratorios Miranda':['http://www.laboratoriosmiranda.gob.ve'],
-		'Metro Maracaibo':['http://www.metrodemaracaibo.gob.ve'],
-		'Defensa Pública':['http://www.defensapublica.gob.ve'],
-		'IND':['http://www.ind.gob.ve'],
-		'Presidencia':['http://www.presidencia.gob.ve'],
-		'FARMAPTRIA':['http://www.farmapatria.gob.ve'],
-		'TSS':['http://www.tss.gob.ve'],
-		'PNB':['http://cpnb.gob.ve'],
-		'TSJ':['http://www.tsj.gob.ve']
-	}
-"""
-
 def my_excepthook(type, value, tback):
     # loguea la excepcion aqui para luego enviarla al handler por defecto
     sys.__excepthook__(type, value, tback)
@@ -1425,24 +1334,25 @@ def main():
 	with open(archivoEstilo,'r') as archivo:
 		app.setStyleSheet(archivo.read())
 	
+	#logging.basicConfig(stream=sys.stdout, level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+	#para debug
 	logging.basicConfig(stream=sys.stdout, level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
-	logging.info("Iniciando BotGIT ...")
+	#logging.info("Iniciando BotGIT ...")
 
 	myapp = VentanaMain()
 	myapp.show()
 
-	"""
+	#redirigiendo salida a la consola
 	queue = Queue()
-	sys.stdout = StreamEscritura(queue)
-	
+	sys.stdout = StreamEscritura(queue)	
 	thread = QtCore.QThread()
 	receptor = Receptor(queue)
 	receptor.signal.connect(myapp.agregarTextoConsola)
 	receptor.moveToThread(thread)
 	thread.started.connect(receptor.run)
 	thread.start()
-	"""
-	
+	#----------------------------------
+		
 	sys.exit(app.exec_())
 
 if __name__ == '__main__':
