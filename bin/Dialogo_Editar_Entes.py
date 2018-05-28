@@ -58,7 +58,6 @@ class Dialogo_Editar_Entes(QtGui.QWidget):
 		self.ui.tableView.hideColumn(0)
 		#self.ui.tableView.setItemDelegate(QtSql.QSqlRelationalDelegate(self.ui.tableView))
 		self.ui.tableView.setItemDelegate(FlipProxyDelegate(self.ui.tableView))
-		self.ui.tableView.setSortingEnabled(True)
 		self.ui.tableView.setColumnWidth(1,300)
 		self.ui.tableView.show()
 

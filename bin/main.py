@@ -377,52 +377,52 @@ class VentanaMain(QtGui.QMainWindow):
 		self.ui.btn_eliminar_paginas.clicked.connect(self.boton_eliminar_paginas_clicked)
 		
 		bd = baseDatos.seleccionar_portales()
-		#if not bd: #Base de datos vacia, posible priemr uso o todos los portales están eliminados
-		for portal in bd:
-			for k,v in portal.items():				
-				nombrePortal = str(k)
-				logging.debug("cargando el portal " + nombrePortal)
-				ente = baseDatos.seleccionar_ente_portal(nombrePortal)
-				lista = v
-				ministerio = baseDatos.seleccionar_ministerio_portal(nombrePortal)
-				#Creando una caja por cada elemento de la lista (por cada portal)
-				caja = Caja(nombrePortal,ente, lista, ministerio, self.ui.scrollAreaWidgetContents)
-				#cargando porcentaje de deteccion de diferencias
-				porcentaje = baseDatos.seleccionar_porcentaje_diferencia_portal(nombrePortal)
-				caja.setPorcDetectarDiferenciaBd(porcentaje)
+		if bd: #Base de datos vacia, posible priemr uso o todos los portales están eliminados
+			for portal in bd:
+				for k,v in portal.items():				
+					nombrePortal = str(k)
+					logging.debug("cargando el portal " + nombrePortal)
+					ente = baseDatos.seleccionar_ente_portal(nombrePortal)
+					lista = v
+					ministerio = baseDatos.seleccionar_ministerio_portal(nombrePortal)
+					#Creando una caja por cada elemento de la lista (por cada portal)
+					caja = Caja(nombrePortal,ente, lista, ministerio, self.ui.scrollAreaWidgetContents)
+					#cargando porcentaje de deteccion de diferencias
+					porcentaje = baseDatos.seleccionar_porcentaje_diferencia_portal(nombrePortal)
+					caja.setPorcDetectarDiferenciaBd(porcentaje)
 
-				#incializando color del texto de la caja
-				for elem in caja.lista:					
-					#Si el elemento diff contiene informacion al momento de la creacion ... Entonces es un error de conexion
-									
-					if elem['diff'][0]:
-						if elem['ultPorcCambio'] > float(elem['porcDetectCambio']):
-							caja.ui.setStyleSheet('QGroupBox{color: red;\nfont: bold;}')
-							caja.estatus = "mal"
-						
-							if regexHttp.match(str(elem['diff'][0])):
-								caja.ui.setStyleSheet('QGroupBox{color: #FF8C00;\nfont: bold;}')
+					#incializando color del texto de la caja
+					for elem in caja.lista:					
+						#Si el elemento diff contiene informacion al momento de la creacion ... Entonces es un error de conexion
+										
+						if elem['diff'][0]:
+							if elem['ultPorcCambio'] > float(elem['porcDetectCambio']):
+								caja.ui.setStyleSheet('QGroupBox{color: red;\nfont: bold;}')
+								caja.estatus = "mal"
 							
-							elif regexErrCon.match(str(elem['diff'][0])):
-								caja.ui.setStyleSheet('QGroupBox{color: #FF8C00;\nfont: bold;}')
-							
-							elif regexTimeout.match(str(elem['diff'][0])):
-								caja.ui.setStyleSheet('QGroupBox{color: #FF8C00;\nfont: bold;}')
-						if elem['estatus']=='hacked':
-							caja.ui.setStyleSheet('QGroupBox{color: magenta;\nfont: bold;}')
+								if regexHttp.match(str(elem['diff'][0])):
+									caja.ui.setStyleSheet('QGroupBox{color: #FF8C00;\nfont: bold;}')
 								
-			#Conectando botones de cada caja a su funcion respectiva
-			caja.ui.btn_actualizar_porcentaje_portal.clicked.connect(functools.partial(self.boton_caja_porc_promedio_actual_set,caja))
-			caja.ui.btn_compararYa.clicked.connect(functools.partial(self.boton_caja_comparar_clicked, caja))
-			caja.ui.btn_mostrar.clicked.connect(functools.partial(self.boton_caja_mostrar_clicked, caja))
-			caja.ui.btn_reIndexar.clicked.connect(functools.partial(self.boton_reIndexar_clicked, caja))
-			caja.ui.btn_modificar.clicked.connect(functools.partial(self.editarPortal, caja))
-			caja.ui.btn_eliminar.clicked.connect(functools.partial(self.eliminarCaja, caja))
-			caja.ui.groupBox.update()
+								elif regexErrCon.match(str(elem['diff'][0])):
+									caja.ui.setStyleSheet('QGroupBox{color: #FF8C00;\nfont: bold;}')
+								
+								elif regexTimeout.match(str(elem['diff'][0])):
+									caja.ui.setStyleSheet('QGroupBox{color: #FF8C00;\nfont: bold;}')
+							if elem['estatus']=='hacked':
+								caja.ui.setStyleSheet('QGroupBox{color: magenta;\nfont: bold;}')
+									
+				#Conectando botones de cada caja a su funcion respectiva
+				caja.ui.btn_actualizar_porcentaje_portal.clicked.connect(functools.partial(self.boton_caja_porc_promedio_actual_set,caja))
+				caja.ui.btn_compararYa.clicked.connect(functools.partial(self.boton_caja_comparar_clicked, caja))
+				caja.ui.btn_mostrar.clicked.connect(functools.partial(self.boton_caja_mostrar_clicked, caja))
+				caja.ui.btn_reIndexar.clicked.connect(functools.partial(self.boton_reIndexar_clicked, caja))
+				caja.ui.btn_modificar.clicked.connect(functools.partial(self.editarPortal, caja))
+				caja.ui.btn_eliminar.clicked.connect(functools.partial(self.eliminarCaja, caja))
+				caja.ui.groupBox.update()
 
-			self.addCaja(caja)
-			#actualizando interfaz de las cajas
-			self.boton_caja_mostrar_clicked(caja)
+				self.addCaja(caja)
+				#actualizando interfaz de las cajas
+				self.boton_caja_mostrar_clicked(caja)
 
 	#Ordenar cajas por estatus al final ...
 
@@ -451,6 +451,7 @@ class VentanaMain(QtGui.QMainWindow):
 		caja.ui.btn_mostrar.clicked.connect(functools.partial(self.boton_caja_mostrar_clicked, caja))
 		caja.ui.btn_reIndexar.clicked.connect(functools.partial(self.boton_reIndexar_clicked, caja))
 		caja.ui.btn_eliminar.clicked.connect(functools.partial(self.eliminarCaja, caja))
+		caja.ui.btn_modificar.clicked.connect(functools.partial(self.editarPortal, caja))
 		caja.ui.groupBox.update()
 		self.addCaja(caja)
 		self.boton_caja_mostrar_clicked(caja)
@@ -644,7 +645,7 @@ class VentanaMain(QtGui.QMainWindow):
 							
 						archivo.close()
 
-						mensaje = "Cambio superio al minimo en " + str(caja.lista[i]['url'])
+						mensaje = "Cambio superior al minimo en " + str(caja.lista[i]['url'])
 						self.robot.enviarMensaje(mensaje)
 				else:
 					caja.lista[i]['ultPorcCambio'] = 0
@@ -1224,6 +1225,22 @@ class VentanaMain(QtGui.QMainWindow):
 	def editarMinisterios(self):
 		dialogoEditarMinisterios = Dialogo_Editar_Ministerios()
 		dialogoEditarMinisterios.dialogo.exec_()
+		lista_entes = baseDatos.seleccionar_todos_entes()
+
+		for caja in self.listaCajas:
+			if caja.ente not in lista_entes:
+				if caja == self.cajaActual:
+					self.cajaActual = ''
+				
+				for i in range(len(caja.lista)):
+					self.ui.tableWidget.removeRow(i)
+				
+				index = self.listaCajas.index(caja)
+				caja.ui.setParent(None)
+				del self.listaCajas[index]
+				index2 = self.listaCajasPermanente.index(caja)
+				del self.listaCajasPermanente[index2]
+				logging.info("Portal eliminado.")
 		
 	def agregarMinisterio(self):
 		nombre, ok = QtGui.QInputDialog.getText(self, 'Agregar Ministerio', 'Ingrese el nombre del ministerio a agregar.')
@@ -1282,6 +1299,25 @@ class VentanaMain(QtGui.QMainWindow):
 	def editarEntes(self):
 		dialogoEditarEntes = Dialogo_Editar_Entes()
 		dialogoEditarEntes.dialogo.exec()
+		lista_entes = baseDatos.seleccionar_todos_entes()
+
+		for caja in self.listaCajas:
+			if caja.ente in lista_entes:
+				pass
+			else:
+				if caja == self.cajaActual:
+						self.cajaActual = ''
+					
+				for i in range(len(caja.lista)):
+					self.ui.tableWidget.removeRow(i)
+				
+				index = self.listaCajas.index(caja)
+				caja.ui.setParent(None)
+				del self.listaCajas[index]
+				index2 = self.listaCajasPermanente.index(caja)
+				del self.listaCajasPermanente[index2]
+				logging.info("Portal eliminado")
+		
 
 	def editarPalabrasClave(self):
 		dialogoPalabrasClave = Dialogo_Palabras_Clave(self.palabrasClave)

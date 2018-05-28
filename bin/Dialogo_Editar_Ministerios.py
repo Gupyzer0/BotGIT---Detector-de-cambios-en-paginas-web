@@ -31,7 +31,6 @@ class Dialogo_Editar_Ministerios(QtGui.QWidget):
 
 		self.ui.tableView.setModel(self.filtro)
 		self.ui.tableView.hideColumn(0)
-		self.ui.tableView.setSortingEnabled(True)
 		self.ui.tableView.show()
 
 		self.ui.pushButton.clicked.connect(self.eliminarMinisterios)

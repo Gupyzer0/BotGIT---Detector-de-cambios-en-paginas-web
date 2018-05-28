@@ -108,7 +108,7 @@
     <li><a href="/#contact">CONTÁCTANOS</a></li>
     <li>
         
-        <form method="post" action="/en/"><input type='hidden' name='csrfmiddlewaretoken' value='GxfyWGdaKKf1BYsmpaZGyNUwLDnIGSCS' />
+        <form method="post" action="/en/"><input type='hidden' name='csrfmiddlewaretoken' value='gpKcxJimsZWyQAShvIZen8TTDUaf0r4X' />
         <input style="margin-top: 8px;" type="image" src="/main/static//img/gb.gif" />
         
         </form>
@@ -703,7 +703,7 @@ Estadísticas. </p>
                 
 
                 <div>
-                    <form action="." method="post" class="wpcf7-form"><input type='hidden' name='csrfmiddlewaretoken' value='GxfyWGdaKKf1BYsmpaZGyNUwLDnIGSCS' />
+                    <form action="." method="post" class="wpcf7-form"><input type='hidden' name='csrfmiddlewaretoken' value='gpKcxJimsZWyQAShvIZen8TTDUaf0r4X' />
                         <span class="wpcf7-form-control-wrap">
 				                           
                             <!-- <input type="submit" value="Reportar" class="wpcf7-form-control wpcf7-submit" > -->

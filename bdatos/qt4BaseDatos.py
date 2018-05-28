@@ -196,8 +196,8 @@ class baseDatos():
 				if portalActual == portal:
 					diff = query.value(4)
 					diff = diff.split('\\n')
-					print(type(diff))
-					print("tamaño diff en bd ",len(diff))
+					#print(type(diff))
+					#print("tamaño diff en bd ",len(diff))
 					#for linea in diff: linea = linea + '\\n'
 					portales[contPortal][portal].append({'url':str(query.value(1)),'direccionArchivo':str(query.value(2)),'md5':str(query.value(3)),'diff':diff,'ultPorcCambio':float(query.value(5)),'porcDetectCambio':float(query.value(6)),'diffAceptado':str(query.value(7)),'estatus':str(query.value(8))})
 					
@@ -207,8 +207,8 @@ class baseDatos():
 					portales.append({portal:[]})
 					diff = query.value(4)
 					diff = diff.split('\\n')
-					print(type(diff))
-					print("tamaño diff en bd ",len(diff))
+					#print(type(diff))
+					#print("tamaño diff en bd ",len(diff))
 					#for linea in diff: linea = linea + '\\n'
 
 					portales[contPortal][portal].append({'url':str(query.value(1)),'direccionArchivo':str(query.value(2)),'md5':str(query.value(3)),'diff':diff,'ultPorcCambio':float(query.value(5)),'porcDetectCambio':float(query.value(6)),'diffAceptado':str(query.value(7)),'estatus':str(query.value(8))})
