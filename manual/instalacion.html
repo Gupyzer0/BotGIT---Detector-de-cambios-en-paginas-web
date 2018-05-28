@@ -87,6 +87,7 @@
                         <li>pip3 install pyperclip</li>
                         <li>pip3 install reportlab</li>
                         <li>pip3 install beautifulSoup4</li>
+                        <li>pip3 install python-telegram-bot</li>
                     </ul>
                 </code>
 
@@ -112,6 +113,11 @@
                 <br>
                 La conexión principal está definida en <b>bdatos/qt4BaseDatos.py</b> y la segunda en el archivo <b>bin/main.py</b> concretamente en la clase "WorkerAddPortal".
                 </p>                
+
+                <h3>Configurando las alarmas via Telegram</h3>
+                <p>Primero es necesario crear un bot, esto se hace iniciando una conversación con el <a href="https://telegram.me/botfather">"BotFather"</a> de Telegram y una vez en la conversación escribimos <b>/newbot</b>, luego el botfather nos pedirá el nombre del bot ... y luego un nombre de usuario para el bot, este <b>debe terminar en bot, ej: skynet_bot, machines_rebellion_bot.</b> Una vez hecho esto, el botfather nos dará el token de nuestro bot !, este token es algo similar a : 123456987:AAHK4UvtIs1UasDas1MM_ynvASdaPc y lo incluiremos en la variable <b>token_aut</b> en el archivo telegramBot.py .</p>
+
+                <p>Ahora tenemos que incluir nuestro bot en una conversación o iniciar una conversación con el, luego necesitamos el <b>id del chat</b> para que nuestro bot sepa a que chat va a hablar. Para esto, vamos a la url https://api.telegram.org/bot<b>**token del bot**</b>/getUpdates, aquí veremos un json con las últimas acciones del bot, podremos observar la iclusión en el chat, si es un grupo el número seguramente será negativo, si es un usuario podemos ver el id del usuario. Una vez tengamos este id lo agregamos en la variable <b>chat_id</b>. Con esto ahora nuestro bot podrá emitir alertas a un determinado chat.</p>
 
                 <h3>Instalación en windows</h3>
                 <p>Usa Google y busca Qt4, SIP, PyQT4 y descarga los ejecutables, <strike>deja la flojera.</strike></p>

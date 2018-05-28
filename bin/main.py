@@ -17,6 +17,7 @@ from PyQt4.QtCore 	import QThreadPool
 from Crawler 		import Crawler,Araña
 from almacenador 	import Almacenador
 from caja        	import Caja
+from telegramBot 	import TelegramBot
 #Ui's
 from Ui_Main  						import Ui_Main
 from Ui_Dialogo_Diff 				import Ui_Dialogo_Diff
@@ -236,6 +237,23 @@ class WorkerAddPaginas(QtCore.QRunnable):
 		finally:
 			self.signals.finished.emit()
 
+class WorkerRobotTelegram(QtCore.QRunnable):
+	def __init__(self, mensaje):
+		self.robot = TelegramBot()
+		self.mensaje = mensaje
+		self.signals = WorkerSignals()
+
+	def run(self):
+		try:
+			self.robot.enviarMensaje(self.mensaje)
+		except:
+			traceback.print_exc()
+			exctype, value = sys.exc_info()[:2]
+			self.signals.error.emit((exctype, value, traceback.format_exc()))
+		finally:
+			self.signals.finished.emit()
+
+
 #Para redirigir elementos de salida estandar a la consola -----------------------------------------------------------
 #Ingresa elementos al texto de la consola
 #REF -> https://stackoverflow.com/questions/21071448/redirecting-stdout-and-stderr-to-a-pyqt4-qtextedit-from-a-secondary-thread
@@ -259,9 +277,9 @@ class Receptor(QtCore.QObject):
 
 class VentanaMain(QtGui.QMainWindow):
 	def __init__(self, parent = None):
-		super(VentanaMain, self).__init__(parent)		
+		super(VentanaMain, self).__init__(parent)
 		#Atributos
-		
+		self.robot = TelegramBot()
 		self.threadpool = QThreadPool()
 		#Mantiene una lista de todos las cajas (portales)
 		self.listaCajasPermanente = []
@@ -543,6 +561,7 @@ class VentanaMain(QtGui.QMainWindow):
 	def Comparar(self, caja):
 		logging.info("Comparando " + caja.portal)
 		for i in range(len(caja.lista)):
+
 			try:
 				req = requests.get(caja.lista[i]['url'], verify = False, timeout = opciones.tiempoTimeout)
 				req.raise_for_status()
@@ -554,6 +573,8 @@ class VentanaMain(QtGui.QMainWindow):
 				caja.lista[i]['estatus'] = req.status_code
 				caja.lista[i]['md5'] = "Error HTTP"
 				caja.lista[i]['ultPorcCambio'] = 100
+				mensaje = "Error de conexión en " + str(caja.lista[i]['url'])
+				self.robot.enviarMensaje(mensaje)
 				
 			except requests.exceptions.ConnectionError as error:
 				logging.warning("Error de conexión")
@@ -562,6 +583,8 @@ class VentanaMain(QtGui.QMainWindow):
 				caja.lista[i]['estatus'] = "Error de Conexion"
 				caja.lista[i]['md5'] = 'Error de Conexion'
 				caja.lista[i]['ultPorcCambio'] = 100
+				mensaje = "Error de conexión en " + str(caja.lista[i]['url'])
+				self.robot.enviarMensaje(mensaje)
 				
 			except requests.exceptions.Timeout as error:
 				logging.warning("Error de conexión, tiempo de espera agotado.")
@@ -570,6 +593,8 @@ class VentanaMain(QtGui.QMainWindow):
 				caja.lista[i]['estatus'] = 'Timeout'
 				caja.lista[i]['md5'] = 'Timeout'
 				caja.lista[i]['ultPorcCambio'] = 100
+				mensaje = "Timeout de conexión en " + str(caja.lista[i]['url'])
+				self.robot.enviarMensaje(mensaje)
 							
 			else:
 				caja.lista[i]['diff'] = ['']
@@ -591,6 +616,8 @@ class VentanaMain(QtGui.QMainWindow):
 						if palabra in webEnLinea:
 							print("Palabra clave encontrada " + palabra)
 							caja.lista[i]['estatus'] = 'hacked' + ' ' + palabra
+							mensaje = "Palabra clave encontrada " + palabra + " en " + str(caja.lista[i]['url'])
+							self.robot.enviarMensaje(mensaje)
 							break
 					
 					#Normalizando las direcciones para usar direcciones con '/' en windows de ser necesario
@@ -633,6 +660,9 @@ class VentanaMain(QtGui.QMainWindow):
 							archivo.write(linea)					
 							
 						archivo.close()
+
+						mensaje = "Cambio superio al minimo en " + str(caja.lista[i]['url'])
+						self.robot.enviarMensaje(mensaje)
 				else:
 					caja.lista[i]['ultPorcCambio'] = 0
 
