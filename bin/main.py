@@ -1117,14 +1117,13 @@ class VentanaMain(QtGui.QMainWindow):
 	
 	#Opciones
 	def setTimeout(self):
-		print("Configurando timeout")
-
 		texto, ok = QtGui.QInputDialog.getText(self, 'Tiempo de timeout', 'Ingrese el nuevo tiempo de timeout, igual o mayor a 5 segundos.')
 
-		if ok & len(texto):
-			try:
+		if ok and len(texto)>0:
+			try:				
 				numero = int(texto)
-			except ValueError:
+				
+			except:
 				logging.warning("Error, ingrese un número")
 				self.msgBox.setWindowTitle('Error, tiempo de timeout')
 				self.msgBox.setText('El tiempo de timeout debe ser un número')
@@ -1133,6 +1132,7 @@ class VentanaMain(QtGui.QMainWindow):
 				self.msgBox.exec()
 			else:
 				if numero < 5:
+					print("hola3")
 					logging.warning("Error, Ingrese un tiempo de timeout igual o superior a 5 segundos.")
 					self.msgBox.setWindowTitle('Error, tiempo de timeout')
 					self.msgBox.setText('El tiempo de timeout debe ser igual o mayor a 5 segundos.')
@@ -1142,7 +1142,7 @@ class VentanaMain(QtGui.QMainWindow):
 				else:
 					opciones.tiempoTimeout = numero
 
-		logging.debug("Tiempo de timeout: " + str(opciones.tiempoTimeout))
+		logging.info("Tiempo de timeout: " + str(opciones.tiempoTimeout))
 
 	#Ministerios
 	def filtrarPortalesPorMinisterios(self):
