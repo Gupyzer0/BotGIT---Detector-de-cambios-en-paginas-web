@@ -13,5 +13,3 @@ class Dialogo_Progreso(QtGui.QWidget):
 		self.dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
 		self.dialogo.setModal(True)
 		self.ui = Ui_Dialogo_Progreso(self.dialogo)
-		
-		#self.dialogo.show()

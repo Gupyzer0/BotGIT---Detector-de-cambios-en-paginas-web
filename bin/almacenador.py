@@ -2,12 +2,6 @@
 
 import requests, hashlib, pprint, os, logging, configparser
 
-#from main import tiempoTimeout
-#tiempoTimeout = 10
-
-#print("Tiempo de timeout:"+str(opciones.tiempoTimeout))
-
-
 class Almacenador():
 
 	#portal es una variable "dummy" para obtener el nombre del portal. Recuerde que esta clase
@@ -17,13 +11,11 @@ class Almacenador():
 		baseDatos = {}
 
 		for portal,valor in listaUrls.items():
-			#print('------------>' + portal)
 
 			try:
 				os.makedirs(os.path.join('portales', portal))
 			except OSError:
 				pass
-				#print('ya existe el directorio')
 
 			baseDatos[portal] = []
 
@@ -39,10 +31,8 @@ class Almacenador():
 				
 				#Error en http, devolvemos el codigo del error
 				except requests.exceptions.HTTPError as error:
-					#print("Error HTTP: \n" + str(error))
 					estatus = objetoRequests.status_code
 					diff = [str(objetoRequests.status_code)]
-					#baseDatos[portal].append({'url': elemento,'direccionArchivo': direccionArchivo,'md5': '','diff': diff })								
 					direccionArchivo = os.path.join('portales', portal, Almacenador.eliminarCaracteresProhibidos(elemento + ".txt"))
 		
 					archivo = open(os.path.join(direccionArchivo), 'wb')
@@ -52,7 +42,6 @@ class Almacenador():
 				
 				#Errores de conexion
 				except requests.exceptions.ConnectionError as error:
-					#print("Error de conexion: \n" + str(error))
 					estatus = 'Error de Conexion'
 					diff = ["Error de Conexion"]			
 
@@ -65,7 +54,6 @@ class Almacenador():
 
 				#Tiempo de espera agotado	
 				except requests.exceptions.Timeout as error:
-					#print("Tiempo de espera agotado: \n" + str(error))
 					estatus = objetoRequests.status_code
 					diff = ["Timeout"]					
 					
@@ -74,12 +62,10 @@ class Almacenador():
 					archivo = open(os.path.join(direccionArchivo), 'wb')
 					archivo.write("Timeout".encode('utf-8'))
 					archivo.close()
-					#baseDatos[portal].append({'url': elemento,'direccionArchivo': direccionArchivo,'md5': '','diff': diff, 'ultPorcCambio': 0 })
 					baseDatos[portal].append({'url': elemento,'direccionArchivo': direccionArchivo,'md5': '','diff': diff, 'ultPorcCambio': 100, 'porcDetectCambio':0, 'diffAceptado':True, 'estatus':estatus })
 
 				#Error no manejado
 				except:
-					#print("Error inesperado al conectar: " + elemento)
 					estatus = objetoRequests.status_code
 					direccionArchivo = os.path.join('portales', portal, Almacenador.eliminarCaracteresProhibidos(elemento + ".txt"))
 					
@@ -90,16 +76,12 @@ class Almacenador():
 					baseDatos[portal].append({'url': elemento,'direccionArchivo': direccionArchivo,'md5': '','diff': diff, 'ultPorcCambio': 100, 'porcDetectCambio':0, 'diffAceptado':True, 'estatus':estatus })
 
 				else:
-					#estatus = objetoRequests.status_code
 					estatus = "ok " + str(objetoRequests.status_code)
 					diff = ['']	
 					paginaMd5 = hashlib.md5(objetoRequests.text.encode('utf-8')).hexdigest()
 					listaTextoArchivo = objetoRequests.text.splitlines(keepends = True)
 					
 					direccionArchivo = os.path.join('portales', portal, Almacenador.eliminarCaracteresProhibidos(elemento + ".txt"))
-					
-					#print("Prueba elemento ->",len(elemento)/2)
-					#print("tamaño",len(direccionArchivo))
 
 					if len(direccionArchivo) > 260:
 						#Si el tamaño de la dir. de l archivo es sueprior a los 260 bytes este será recortado
@@ -119,7 +101,7 @@ class Almacenador():
 					archivo.close()
 
 					baseDatos[portal].append({'url': elemento,'direccionArchivo': direccionArchivo,'md5': paginaMd5,'diff': diff,'ultPorcCambio':0, 'porcDetectCambio':0, 'diffAceptado':True,'estatus':estatus})
-		#print(baseDatos)
+
 		return baseDatos
 
 	@staticmethod
@@ -141,16 +123,13 @@ class Almacenador():
 			os.makedirs(os.path.join('portales', portal))
 		except OSError:
 			pass
-			#print('ya existe el directorio')
 
 		try:
-			#print("Tiempo Timeout Almacenador",str(opciones.tiempoTimeout))
 			objetoRequests = requests.get(url, verify = False, timeout = 10)
 			objetoRequests.raise_for_status()
 		#Error en http, devolvemos el codigo del error
 
 		except requests.exceptions.HTTPError as error:
-			#print("Error HTTP: \n" + str(error))
 			estatus = objetoRequests.status_code
 			diff = [str(objetoRequests.status_code)]
 			paginaMd5 = 'Error HTTP'
@@ -158,7 +137,6 @@ class Almacenador():
 			listaTextoArchivo = ['Error de conexion HTTP']
 		#Errores de conexion
 		except requests.exceptions.ConnectionError as error:
-			#print("Error de conexion: \n" + str(error))
 			estatus = "Error de Conexion"
 			diff = ['Error de Conexion']
 			paginaMd5 = 'Error de Conexion'
@@ -166,7 +144,6 @@ class Almacenador():
 			listaTextoArchivo = ['Error de conexion']
 		#Tiempo de espera agotado	
 		except requests.exceptions.Timeout as error:
-			#print("Tiempo de espera agotado: \n" + str(error))
 			estatus = "Timeout"
 			diff = ['Timeout']
 			paginaMd5 = 'Timeout'
@@ -181,7 +158,6 @@ class Almacenador():
 			listaTextoArchivo = ['Error de conexion Inesperado']
 
 		else:
-			#estatus = 'Error de conexion'
 			estatus = "ok " + str(objetoRequests.status_code)	
 			diff = ['']
 			paginaMd5 = hashlib.md5(objetoRequests.text.encode('utf-8')).hexdigest()
@@ -208,11 +184,7 @@ class Almacenador():
 		
 			archivo.close()
 
-		#pagina.append({'url': url,'direccionArchivo': direccionArchivo,'md5': paginaMd5})
 
-
-		#return {'direccionArchivo':direccionArchivo, 'paginaMd5':paginaMd5}
 		logging.debug("---->Porcentaje cambio:" + str(ultPorcCambio))						
 		logging.debug("diff: " + str(diff))
 		return {'url': url,'direccionArchivo': direccionArchivo,'md5': paginaMd5,'diff': diff, 'ultPorcCambio':ultPorcCambio, 'porcDetectCambio':0, 'diffAceptado':True, 'estatus':estatus}
-		       

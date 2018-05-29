@@ -58,8 +58,8 @@ img.emoji {
 <script type='text/javascript' src='http://www.suscerte.gob.ve/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
 <script type='text/javascript'>
 /* <![CDATA[ */
-var categoryposttab = {"cpt_ajax_url":"http:\/\/www.suscerte.gob.ve\/wp-admin\/admin-ajax.php","cpt_security":"de760cc638","cpt_plugin_url":"http:\/\/www.suscerte.gob.ve\/wp-content\/plugins\/category-and-post-tab\/include\/"};
-var categoryposttab = {"cpt_ajax_url":"http:\/\/www.suscerte.gob.ve\/wp-admin\/admin-ajax.php","cpt_security":"de760cc638","cpt_plugin_url":"http:\/\/www.suscerte.gob.ve\/wp-content\/plugins\/category-and-post-tab\/include\/"};
+var categoryposttab = {"cpt_ajax_url":"http:\/\/www.suscerte.gob.ve\/wp-admin\/admin-ajax.php","cpt_security":"1a485abbcd","cpt_plugin_url":"http:\/\/www.suscerte.gob.ve\/wp-content\/plugins\/category-and-post-tab\/include\/"};
+var categoryposttab = {"cpt_ajax_url":"http:\/\/www.suscerte.gob.ve\/wp-admin\/admin-ajax.php","cpt_security":"1a485abbcd","cpt_plugin_url":"http:\/\/www.suscerte.gob.ve\/wp-content\/plugins\/category-and-post-tab\/include\/"};
 /* ]]> */
 </script>
 <script type='text/javascript' src='http://www.suscerte.gob.ve/wp-content/plugins/category-and-post-tab/assets/js/categoryposttab.js?ver=4.6.1'></script>

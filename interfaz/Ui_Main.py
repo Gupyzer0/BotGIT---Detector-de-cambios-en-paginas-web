@@ -23,10 +23,8 @@ class Ui_Main(QtGui.QMainWindow):
 		MainWindow.resize(1440, 600)
 
 		#widget central------------------------------------------------------------------------
-		#self.centralwidget = QtGui.QWidget(MainWindow)
 		self.centralwidget = QtGui.QWidget(MainWindow)
 		self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
-		#self.centralwidget.resize(0,0)
 		self.centrallayout = QtGui.QGridLayout(self.centralwidget)
 		self.centrallayout.setObjectName(_fromUtf8("centrallayout"))
 
@@ -38,7 +36,6 @@ class Ui_Main(QtGui.QMainWindow):
 		self.layoutWidgetComparador.setObjectName(_fromUtf8("layoutWidgetComparador"))
 
 		#Area de scrolling, para poder anadir layout donde van los widgets de "cajas"
-		#self.scrollArea = QtGui.QScrollArea(self.widgetComparador)
 		self.scrollArea = QtGui.QScrollArea(self.widgetComparador)
 		self.scrollArea.setWidgetResizable(True)
 		self.scrollArea.setObjectName(_fromUtf8("scrollArea"))
@@ -56,7 +53,6 @@ class Ui_Main(QtGui.QMainWindow):
 		#Layout grupo de botones superior izquierda
 		
 		self.grupo_botones = QtGui.QHBoxLayout()
-		
 	
 		#Boton Seleccionar todos
 		self.btn_seleccionar_todos = QtGui.QPushButton()
@@ -110,11 +106,6 @@ class Ui_Main(QtGui.QMainWindow):
 		self.btn_ordenar_estatus = QtGui.QPushButton()
 		self.btn_ordenar_estatus.setIcon(iconoEstatus)
 		self.btn_ordenar_estatus.setMinimumHeight(28)
-		#self.btn_ordenar_nombre.setText(_translate("MainWindow", "Ordenar", None))
-		#iconoOrdenar = QtGui.QIcon()
-		#iconoOrdenar.addPixmap(QtGui.QPixmap(_fromUtf8("../interfaz/imagenes/A-Z.GIF")), QtGui.QIcon.Selected, QtGui.QIcon.On)
-		#self.btn_ordenar_nombre.setIcon(iconoOrdenar)
-		#self.btn_ordenar_estatus.setText(_translate("MainWindow", "Ord. Estatus", None))
 		self.grupo_botones.addWidget(self.btn_ordenar_estatus)
 
 		self.btn_add_caja = QtGui.QPushButton()
@@ -126,7 +117,6 @@ class Ui_Main(QtGui.QMainWindow):
 
 		#Tabla con las direcciones y estatus de comparacion
 		self.tableWidget = QtGui.QTableWidget(self.widgetComparador)
-		#self.tableWidget.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
 		self.tableWidget.setMinimumWidth(690)
 		self.tableWidget.setMinimumHeight(400)
 		self.tableWidget.setColumnCount(5)
@@ -148,9 +138,6 @@ class Ui_Main(QtGui.QMainWindow):
 		#self.tableWidget.setColumnWidth(4,60)
 		self.tableWidget.setStyleSheet("background-image: url(../interfaz/imagenes/logo_blanco_negro.png); background-attachment: fixed; background-repeat: no-repeat; background-position: center;")
 		self.layoutWidgetComparador.addWidget(self.tableWidget,1,1,1,1)
-
-		
-		
 
 		#layout botones superior derecha
 		self.grupo_botones_derecha = QtGui.QHBoxLayout()
@@ -188,7 +175,6 @@ class Ui_Main(QtGui.QMainWindow):
 
 		MainWindow.setCentralWidget(self.centralwidget)
 
-
 		#Barra inferior de estatus --------------------------------
 		self.statusbar = QtGui.QStatusBar()
 		self.statusbar.setObjectName(_fromUtf8("statusbar"))
@@ -208,7 +194,4 @@ class Ui_Main(QtGui.QMainWindow):
 		QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
 	def retranslateUi(self, MainWindow):
-		MainWindow.setWindowTitle(_translate("BotGit", "BotGit", None))	
-		#self.menuOpciones.setTitle(_translate("MainWindow", "Opciones", None))
-		#self.actionCambiar_Timeout.setText(_translate("MainWindow", "Cambiar Timeout", None))
-
+		MainWindow.setWindowTitle(_translate("BotGit", "BotGIT", None))	

@@ -6,7 +6,6 @@ from PyQt4 import QtCore,QtGui
 from qt4BaseDatos import baseDatos
 #Modulos visuales
 #Modulos visuales
-#from workers    import workerComparador
 from cajaInterfaz import Widget_Caja
 
 try:

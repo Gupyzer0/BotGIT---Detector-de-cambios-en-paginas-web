@@ -76,12 +76,11 @@ class Dialogo_Editar_Ministerios(QtGui.QWidget):
 		respuesta = self.msgBox.exec_()
 
 		if respuesta == QtGui.QMessageBox.Ok:
-			logging.info('Eliminando ' + numeroFilas + ' ministerios.')
-			for idx in filas: print(idx.row())			
+						
+			logging.info('Eliminando ' + numeroFilas + ' ministerios.')			
+			
+			filas = sorted(filas)
+			filas = filas[::-1] #en reverso para que elimine de atrás hacia delante
 			for idx in filas:
-				self.modeloBaseDatos.removeRows(idx.row(),1)
-		
-
-	#rellenar tabla con ministerios y checkbox
-
-	#obtener ministerios con checkboxes
+				index = self.filtro.mapToSource(idx) #para obtener el index del modelo y no del modelo filtrado
+				self.modeloBaseDatos.removeRows(index.row(),1)

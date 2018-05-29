@@ -4,11 +4,10 @@ import sys,pprint,logging
 
 sys.path.append("../bin")
 
-
 from PyQt4 import QtCore,QtSql,Qt
 from almacenador import Almacenador
 
-base_de_datos = "proyectoprueba1"
+base_de_datos = "botgit"
 hostname      = "localhost"
 usuario       = "root"
 password      = "123456"
@@ -143,7 +142,7 @@ class baseDatos():
 	def add_portal(nombreEnte,nombrePortal,db=db):#TRANSACCIONAR
 		query_2 = QtSql.QSqlQuery(db)
 		if query_2.exec('SET wait_timeout = 9000'):
-			print("ok")
+			pass
 		else:
 			print("error conectando a la base de datos")
 			return
@@ -156,10 +155,8 @@ class baseDatos():
 		if query_2.exec_():
 			db.commit()
 			print(query_2.lastError().text())
-			print("Portal agregado")
 			return 1
 		else:
-			print("Portal no agregado")
 			print(query_2.lastError().text())
 			return 0
 
@@ -190,15 +187,11 @@ class baseDatos():
 			for fila in range(0,tam):
 				query.seek(fila)
 				portalActual = str(query.value(0))
-
-				#{'url': url,'direccionArchivo': direccionArchivo,'md5': paginaMd5,'diff': diff, 'ultPorcCambio':ultPorcCambio, 'porcDetectCambio':0, 'diffAceptado':True, 'estatus':estatus}
-				
+		
 				if portalActual == portal:
 					diff = query.value(4)
 					diff = diff.split('\\n')
-					#print(type(diff))
-					#print("tamaño diff en bd ",len(diff))
-					#for linea in diff: linea = linea + '\\n'
+					
 					portales[contPortal][portal].append({'url':str(query.value(1)),'direccionArchivo':str(query.value(2)),'md5':str(query.value(3)),'diff':diff,'ultPorcCambio':float(query.value(5)),'porcDetectCambio':float(query.value(6)),'diffAceptado':str(query.value(7)),'estatus':str(query.value(8))})
 					
 				else:
@@ -207,9 +200,6 @@ class baseDatos():
 					portales.append({portal:[]})
 					diff = query.value(4)
 					diff = diff.split('\\n')
-					#print(type(diff))
-					#print("tamaño diff en bd ",len(diff))
-					#for linea in diff: linea = linea + '\\n'
 
 					portales[contPortal][portal].append({'url':str(query.value(1)),'direccionArchivo':str(query.value(2)),'md5':str(query.value(3)),'diff':diff,'ultPorcCambio':float(query.value(5)),'porcDetectCambio':float(query.value(6)),'diffAceptado':str(query.value(7)),'estatus':str(query.value(8))})
 			return portales
@@ -234,8 +224,7 @@ class baseDatos():
 		query.addBindValue(nombrePortal)
 		if query.exec_():
 			query.first()
-			#print(query.value(0))
-			#print(float(query.value(0)))
+
 			return float(query.value(0))
 		else:
 			print("Error encontrando el porcentaje de diferencia, deffault a 0")
@@ -270,8 +259,6 @@ class baseDatos():
 		query.addBindValue(nombrePortal)
 		if query.exec_():
 			query.first()
-			#print(query.value(0))
-			#print(float(query.value(0)))
 			return float(query.value(0))
 		else:
 			logging.error("Error encontrando el porcentaje de diferencia actual, deffault a 0")
@@ -340,10 +327,8 @@ class baseDatos():
 		if query_2.exec_():
 			db.commit()
 			print(query.lastError().text())
-			print("agregada url")
 			return 1
 		else:
-			print("url no agregada")
 			print(query_2.lastQuery())
 			print(query_2.lastError().text())
 			return 0
@@ -556,6 +541,3 @@ class baseDatos():
 		else:
 			print("False")
 			return False
-#Para propositos de debugging
-#sys.exit()
-#sys.exit(app.exec_())

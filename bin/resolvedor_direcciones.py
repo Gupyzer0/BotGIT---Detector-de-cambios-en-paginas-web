@@ -107,12 +107,3 @@ def resolverDireccion(pagina_base, link):
 		direccionAbsoluta = 'http://' + direccionAbsoluta
 
 	return direccionAbsoluta
-
-#if len(sys.argv) < 2:
-#	print("no son suficientes parametros")
-#	sys.exit()
-
-#print("Dominio: ", sys.argv[1])
-#print("Link a resolver: ", sys.argv[2])
-#DirResuelta = resolverDireccion(sys.argv[1], sys.argv[2])
-#print("Direccion Resuelta: ", DirResuelta)

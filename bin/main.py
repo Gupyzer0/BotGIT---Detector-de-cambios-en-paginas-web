@@ -104,7 +104,6 @@ class WorkerMonitorear(QtCore.QRunnable):
 
 	def run(self):
 		try:
-			#resultado = self.fn(self.listaCajas, self.tiempo)
 			self.fn(self.listaCajas, self.tiempo)
 		except:
 			traceback.print_exc()
@@ -149,9 +148,7 @@ class WorkerCrawler(QtCore.QRunnable):
 			traceback.print_exc()
 			exctype, value = sys.exc_info()[:2]
 			self.signals.error.emit((exctype, value, traceback.format_exc()))
-			#logging.debug('--------------Error------------')
 		finally:
-			#logging.debug("Worker Crawling finalizado")
 			self.signals.finished.emit()
 
 class WorkerAddPortal(QtCore.QRunnable):
@@ -171,7 +168,7 @@ class WorkerAddPortal(QtCore.QRunnable):
 			#es necesario para evitar una falla de segmento. Llamaremos a las funciones de
 			#la base de datos pero sobrecargando la conexion a base de datos en uso.
 
-			base_de_datos = "proyectoprueba1"
+			base_de_datos = "botgit"
 			hostname      = "localhost"
 			usuario       = "root"
 			password      = "123456"
@@ -196,7 +193,6 @@ class WorkerAddPortal(QtCore.QRunnable):
 
 				for url in self.arrUrls:
 					pagina = self.fnAlmacenador(self.nombrePortal,str(url))
-					#print(pagina)
 					self.fnAddPaginaBd(self.nombrePortal,url,pagina['direccionArchivo'],pagina['md5'],pagina['diff'],pagina['ultPorcCambio'],pagina['porcDetectCambio'],pagina['diffAceptado'],pagina['estatus'],db=db2)
 					self.signals.paginaLista.emit(pagina)
 
@@ -224,9 +220,7 @@ class WorkerAddPaginas(QtCore.QRunnable):
 	def run(self):
 		try:
 			for url in self.urls:
-				#return {'url': url,'direccionArchivo': direccionArchivo,'md5': paginaMd5,'diff': diff, 'ultPorcCambio':ultPorcCambio, 'porcDetectCambio':0, 'diffAceptado':True, 'estatus':estatus}
 				pagina = self.fnAlmacenador(self.caja.portal,url)
-				#def add_pagina(nombrePortal,url,direccionArchivo,md5,diff,ultPorcCambio,porcDetectCambio,diffAceptado,estatus):
 				self.fnBaseDatosAddPagina(self.caja.portal,url,pagina['direccionArchivo'],pagina['md5'],pagina['diff'],pagina['ultPorcCambio'],pagina['porcDetectCambio'],pagina['diffAceptado'],pagina['estatus'] )
 				self.caja.lista.append(pagina)
 
@@ -237,7 +231,7 @@ class WorkerAddPaginas(QtCore.QRunnable):
 		finally:
 			self.signals.finished.emit()
 
-#Para redirigir elementos de salida estandar a la consola -----------------------------------------------------------
+#Para redirigir elementos de salida estandar a la consola 
 #Ingresa elementos al texto de la consola
 #REF -> https://stackoverflow.com/questions/21071448/redirecting-stdout-and-stderr-to-a-pyqt4-qtextedit-from-a-secondary-thread
 class StreamEscritura():
@@ -377,7 +371,9 @@ class VentanaMain(QtGui.QMainWindow):
 		self.ui.btn_eliminar_paginas.clicked.connect(self.boton_eliminar_paginas_clicked)
 		
 		bd = baseDatos.seleccionar_portales()
-		if bd: #Base de datos vacia, posible priemr uso o todos los portales están eliminados
+
+		#Si la base de datos no está vacia ... crear interfaz de portales
+		if bd[0].get('None') != []:	
 			for portal in bd:
 				for k,v in portal.items():				
 					nombrePortal = str(k)
@@ -552,7 +548,7 @@ class VentanaMain(QtGui.QMainWindow):
 
 			except requests.exceptions.HTTPError as error:
 				logging.warning("Error de conexión")
-				print("Error: \n" + str(error))
+				print("Error: " + str(error))
 				caja.lista[i]['diff'] = str([req.status_code])
 				caja.lista[i]['estatus'] = req.status_code
 				caja.lista[i]['md5'] = "Error HTTP"
@@ -572,7 +568,7 @@ class VentanaMain(QtGui.QMainWindow):
 				
 			except requests.exceptions.Timeout as error:
 				logging.warning("Error de conexión, tiempo de espera agotado.")
-				print("Tiempo de espera agotado: \n" + str(error))
+				print("Tiempo de espera agotado: " + str(error))
 				caja.lista[i]['diff'] = ['Timeout']
 				caja.lista[i]['estatus'] = 'Timeout'
 				caja.lista[i]['md5'] = 'Timeout'
@@ -663,12 +659,10 @@ class VentanaMain(QtGui.QMainWindow):
 					cambio = True
 
 			if	not caja.lista[i]['diffAceptado']:
-				#print("Pasamos pro aca")
 				caja.ui.setStyleSheet('QGroupBox{color: red;\nfont: bold;}')
 				cambio = True
 
 			if caja.lista[i]['estatus'] == 'hacked':
-				print('hackeada')
 				caja.ui.setStyleSheet('QGroupBox{color: magenta;\nfont: bold;}')
 				caja.ui.texto_porcentaje_cambio_promedio.setStyleSheet('QLabel {color : red; }')
 				cambio = True
@@ -694,7 +688,6 @@ class VentanaMain(QtGui.QMainWindow):
 		tiempoRestante = tiempo
 
 		for caja in listaCajas:
-			#print("Iteracion lista cajas")
 			caja.ui.btn_compararYa.setDisabled(1)
 			worker = WorkerComparador(self.Comparar,caja)
 			if (self.cajaActual == caja):
@@ -854,7 +847,7 @@ class VentanaMain(QtGui.QMainWindow):
 		self.seleccionarCajasTodas()
 
 	def boton_comparar_clicked(self):
-		print("Comparando portales")
+		print("Comparando portales...")
 		for caja in self.listaCajas:
 			if caja.ui.groupBox.isChecked():
 				self.listaCajasChequeadas.append(caja)
@@ -876,7 +869,7 @@ class VentanaMain(QtGui.QMainWindow):
 		self.listaCajasChequeadas = []
 
 	def boton_monitorear_clicked(self):
-		print("Iniciando monitoreo")
+		print("Iniciando monitoreo...")
 		self.ui.btn_monitoreo_seleccion.setDisabled(0)
 		self.banderaMonitoreo = True
 		
@@ -1349,15 +1342,13 @@ class VentanaMain(QtGui.QMainWindow):
 	def mostrarAyuda(self):
 		webbrowser.open(os.path.join(os.getcwd(), '..','manual','index.html'))
 
-	def pruebas(self):
-		logging.debug("Función de pruebas")
-		print("Funcion de prueba !")
+#--------------------------------------------- fin clase MainWindow -----------------------------------------------
 
 def my_excepthook(type, value, tback):
     # loguea la excepcion aqui para luego enviarla al handler por defecto
     sys.__excepthook__(type, value, tback)
 
-#----------------------Iniciando-----------------------------------
+#------------------------------------------------------ MAIN ------------------------------------------------------
 def main():
 	
 	QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_X11InitThreads)
@@ -1370,11 +1361,8 @@ def main():
 	with open(archivoEstilo,'r') as archivo:
 		app.setStyleSheet(archivo.read())
 	
-	#logging.basicConfig(stream=sys.stdout, level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-	#para debug
-	logging.basicConfig(stream=sys.stdout, level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
-	#logging.info("Iniciando BotGIT ...")
-
+	logging.basicConfig(stream=sys.stdout, level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+	
 	myapp = VentanaMain()
 	myapp.show()
 

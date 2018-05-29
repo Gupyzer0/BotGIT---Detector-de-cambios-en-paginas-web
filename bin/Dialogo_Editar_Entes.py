@@ -106,18 +106,16 @@ class Dialogo_Editar_Entes(QtGui.QWidget):
 		numeroFilas = str(len(filas))
 		
 		self.msgBox.setWindowTitle('Eliminar Entes')
-		self.msgBox.setText('¿Está seguro que desea eliminar ' + numeroFilas + ' miniterios?')
+		self.msgBox.setText('¿Está seguro que desea eliminar ' + numeroFilas + ' entes?')
 		self.msgBox.setIcon(QtGui.QMessageBox.Warning)
 		self.msgBox.setStandardButtons(QtGui.QMessageBox.Cancel | QtGui.QMessageBox.Ok )
 		respuesta = self.msgBox.exec_()
 
 		if respuesta == QtGui.QMessageBox.Ok:
 			logging.info('Eliminando ' + numeroFilas + ' entes.')
-			for idx in filas: print(idx.row())			
+			
+			filas = sorted(filas)
+			filas = filas[::-1] #en reverso para que elimine de atrás hacia delante
 			for idx in filas:
-				self.modeloBaseDatos.removeRows(idx.row(),1)
-
-
-
-
-
+				index = self.filtro.mapToSource(idx) #para obtener el index del modelo y no del modelo filtrado
+				self.modeloBaseDatos.removeRows(index.row(),1)
