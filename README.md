@@ -1,8 +1,8 @@
-:eight_pointed_black_star:#BotGit:eight_pointed_black_star: 
+# BotGit
 
 BotGIT es un programa que diseñado para el escaneo del estado de los portales de la administración pública nacional en búsqueda de modificaciones que pudieran estar relacionadas con una desfiguración de portal web o servidores con respuestas erroneas.
 
-##Instalación
+## Instalación
 
 BotGIT está programado en Python3 y hace uso de Qt4 y los bindings de Qt4 para Python3 , PyQT4 y utiliza MariaDB como manejador de base de datos.
 ```
@@ -29,16 +29,16 @@ Para que las alarmas via telegram funcionen es necesario crear un Bot de Telegra
 
 Para más información sobre la instalación consulte el manual incluido con BotGIT.
 
-##Uso:
+## Uso:
 
 Navegar a la carpeta bin y ejecutar el archivo main.py
 ```
 Python3 main.py
 ```
-##Autor
+## Autor
 Leonel Becerra :eight_pointed_black_star:
 
-###Créditos
+## Créditos
 Logo por Miguel Marquez.
 
-BotGIT es un proyecto de la Universidad Bolivariana de Venezuela para SUSCERTE / VenCERT.
+### BotGIT es un proyecto de la Universidad Bolivariana de Venezuela para SUSCERTE / VenCERT.
