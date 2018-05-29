@@ -15,7 +15,6 @@ apt-get install python3-sip
 apt-get install python3-pyqt4
 apt-get install python-qt4-sql
 pip3 install requests
-pip3 install webbrowser
 pip3 install pyperclip
 pip3 install reportlab
 pip3 install beautifulSoup4
