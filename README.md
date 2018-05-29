@@ -1,14 +1,11 @@
-   ___       __  _______________
-  / _ )___  / /_/ ___/  _/_  __/
- / _  / _ \/ __/ (_ // /  / /   
-/____/\___/\__/\___/___/ /_/   
+# BotGit
 
 BotGIT es un programa que diseñado para el escaneo del estado de los portales de la administración pública nacional en búsqueda de modificaciones que pudieran estar relacionadas con una desfiguración de portal web o servidores con respuestas erroneas.
 
-Instalación
+## Instalación
 
 BotGIT está programado en Python3 y hace uso de Qt4 y los bindings de Qt4 para Python3 , PyQT4 y utiliza MariaDB como manejador de base de datos.
-
+```
 apt-get install mariadb-server
 apt-get install python3
 apt-get install python3-pip
@@ -18,26 +15,29 @@ apt-get install python3-sip
 apt-get install python3-pyqt4
 apt-get install python-qt4-sql
 pip3 install requests
-pip3 install webbrowser
 pip3 install pyperclip
 pip3 install reportlab
 pip3 install beautifulSoup4
 pip3 install python-telegram-bot
-
+```
 crear base de datos con el nombre botgit e importar el esquema
-
+```
 mysql -u xxxx -p botgit < esquema.sql
-
+```
 Para que las alarmas via telegram funcionen es necesario crear un Bot de Telegram y colocar el ID de la conversación y token de acceso en el archivo bin/telegramBot.py
 
 Para más información sobre la instalación consulte el manual incluido con BotGIT.
 
-Uso:
+## Uso:
 
 Navegar a la carpeta bin y ejecutar el archivo main.py
+```
 Python3 main.py
+```
+## Autor
+Leonel Becerra :eight_pointed_black_star:
 
-Programado por: Leonel Becerra
-Logo e idea original: Miguel Marquez
+## Créditos
+Logo por Miguel Marquez.
 
-BotGIT es un proyecto de la Universidad Bolivariana de Venezuela para SUSCERTE / VenCERT
+### BotGIT es un proyecto de la Universidad Bolivariana de Venezuela para SUSCERTE / VenCERT.
