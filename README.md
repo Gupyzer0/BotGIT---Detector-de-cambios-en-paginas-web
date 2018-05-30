@@ -6,14 +6,8 @@ BotGIT es un programa que diseñado para el escaneo del estado de los portales d
 
 BotGIT está programado en Python3 y hace uso de Qt4 y los bindings de Qt4 para Python3 , PyQT4 y utiliza MariaDB como manejador de base de datos.
 ```
-apt-get install mariadb-server
-apt-get install python3
-apt-get install python3-pip
-apt-get install qt4-*
-apt-get install libqt4-sql-mysql
-apt-get install python3-sip
-apt-get install python3-pyqt4
-apt-get install python-qt4-sql
+apt-get install mariadb-server python3 python3-pip qt4-* libqt4-sql-mysql python3-sip python3-pyqt4 python-qt4-sql
+
 pip3 install requests
 pip3 install pyperclip
 pip3 install reportlab
