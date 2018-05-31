@@ -1304,25 +1304,6 @@ class VentanaMain(QtGui.QMainWindow):
 
 		self.actualizarTodasCajas()
 
-		"""
-		for caja in self.listaCajas:
-			if caja.ente in lista_entes:
-				pass
-			else:
-				if caja == self.cajaActual:
-						self.cajaActual = ''
-					
-				for i in range(len(caja.lista)):
-					self.ui.tableWidget.removeRow(i)
-				
-				index = self.listaCajas.index(caja)
-				caja.ui.setParent(None)
-				del self.listaCajas[index]
-				index2 = self.listaCajasPermanente.index(caja)
-				del self.listaCajasPermanente[index2]
-				logging.info("Portal eliminado")
-		"""
-
 	def editarPalabrasClave(self):
 		dialogoPalabrasClave = Dialogo_Palabras_Clave(self.palabrasClave)
 		dialogoPalabrasClave.dialogo.exec_()
