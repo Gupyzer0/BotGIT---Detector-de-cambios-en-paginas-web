@@ -370,9 +370,31 @@ class VentanaMain(QtGui.QMainWindow):
 		self.ui.btn_añadir_paginas.clicked.connect(self.boton_add_pagina_clicked)
 		self.ui.btn_eliminar_paginas.clicked.connect(self.boton_eliminar_paginas_clicked)
 		
-		bd = baseDatos.seleccionar_portales()
+		self.actualizarTodasCajas()
 
-		#Si la base de datos no está vacia ... crear interfaz de portales
+	def agregarTextoConsola(self, text):
+		self.ui.consola.moveCursor(QtGui.QTextCursor.End)
+		self.ui.consola.insertPlainText(text)
+
+	def actualizarStatusBar(self,texto):
+		self.ui.statusbar.showMessage(texto)
+	
+	def addCaja(self, caja):
+		self.ui.layoutScrollArea.addWidget(caja.ui)
+		self.listaCajas.append(caja)
+		self.listaCajasPermanente.append(caja)
+
+	#Actualiza la lista de cajas (portales) desde la base de datos
+	def actualizarTodasCajas(self):
+		for caja in self.listaCajas:
+			index = self.listaCajas.index(caja)
+			caja.ui.setParent(None)
+			del self.listaCajas[index]
+			index2 = self.listaCajasPermanente.index(caja)
+			del self.listaCajasPermanente[index2]
+
+		bd = baseDatos.seleccionar_portales()
+		
 		if bd[0].get('None') != []:	
 			for portal in bd:
 				for k,v in portal.items():				
@@ -419,20 +441,6 @@ class VentanaMain(QtGui.QMainWindow):
 				self.addCaja(caja)
 				#actualizando interfaz de las cajas
 				self.boton_caja_mostrar_clicked(caja)
-
-	#Ordenar cajas por estatus al final ...
-
-	def agregarTextoConsola(self, text):
-		self.ui.consola.moveCursor(QtGui.QTextCursor.End)
-		self.ui.consola.insertPlainText(text)
-
-	def actualizarStatusBar(self,texto):
-		self.ui.statusbar.showMessage(texto)
-	
-	def addCaja(self, caja):
-		self.ui.layoutScrollArea.addWidget(caja.ui)
-		self.listaCajas.append(caja)
-		self.listaCajasPermanente.append(caja)
 
 	def agregarCajaInterfaz(self,listaAddInterfaz):		
 		nombrePortal = listaAddInterfaz[0]
@@ -1294,6 +1302,9 @@ class VentanaMain(QtGui.QMainWindow):
 		dialogoEditarEntes.dialogo.exec()
 		lista_entes = baseDatos.seleccionar_todos_entes()
 
+		self.actualizarTodasCajas()
+
+		"""
 		for caja in self.listaCajas:
 			if caja.ente in lista_entes:
 				pass
@@ -1310,7 +1321,7 @@ class VentanaMain(QtGui.QMainWindow):
 				index2 = self.listaCajasPermanente.index(caja)
 				del self.listaCajasPermanente[index2]
 				logging.info("Portal eliminado")
-		
+		"""
 
 	def editarPalabrasClave(self):
 		dialogoPalabrasClave = Dialogo_Palabras_Clave(self.palabrasClave)

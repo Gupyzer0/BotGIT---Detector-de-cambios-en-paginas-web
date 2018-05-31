@@ -64,6 +64,9 @@ class Dialogo_Editar_Entes(QtGui.QWidget):
 		self.ui.pushButton.clicked.connect(self.eliminarEntes)
 		self.ui.pushButton_2.clicked.connect(self.agregarEnte)
 		self.ui.lineEdit.textChanged.connect(self.filtro.setFilterRegExp)
+
+		self.modeloBaseDatos.beforeInsert.connect(self.verificarData)
+		self.modeloBaseDatos.beforeUpdate.connect(self.verificarData)
 		
 	def agregarEnte(self):
 		dialogoAgregarEntes = Dialogo_Agregar_Entes()
@@ -119,3 +122,14 @@ class Dialogo_Editar_Entes(QtGui.QWidget):
 			for idx in filas:
 				index = self.filtro.mapToSource(idx) #para obtener el index del modelo y no del modelo filtrado
 				self.modeloBaseDatos.removeRows(index.row(),1)
+
+	def verificarData(self,fila,record):
+
+		if record.isNull('nombre') or record.value(1) == '':
+			record.setValue(1,'**** VALOR NULO ***')
+			
+			self.msgBox.setWindowTitle('Valor nulo ingresado')
+			self.msgBox.setText('Usted ingresó un nombre nulo en la fila ' + str(fila) + ', corrija si es necesario')
+			self.msgBox.setIcon(QtGui.QMessageBox.Warning)
+			self.msgBox.setStandardButtons(QtGui.QMessageBox.Ok)
+			self.msgBox.exec()
