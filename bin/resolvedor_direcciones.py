@@ -1,15 +1,6 @@
 import sys
 
 #obtiene el dominio de una página web
-"""
-def obtenerDominio(link):
-	base = ''
-	for pnt in range(8, len(link)):
-		if link[pnt:pnt + 1] == '/':
-			base = link[0:pnt]
-			break
-	return base
-"""
 
 def obtenerDominio(link):
 
