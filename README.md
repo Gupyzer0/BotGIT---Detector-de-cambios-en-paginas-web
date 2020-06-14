@@ -32,6 +32,6 @@ Python3 main.py
 Leonel Becerra :eight_pointed_black_star:
 
 ## Créditos
-Logo por Miguel Marquez.
+Logo e idea original por Miguel Marquez.
 
 ### BotGIT es un proyecto de la Universidad Bolivariana de Venezuela para SUSCERTE / VenCERT.
